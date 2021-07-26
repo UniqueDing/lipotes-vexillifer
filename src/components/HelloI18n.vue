@@ -4,14 +4,14 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n/index'
 
 export default defineComponent({
   name: 'HelloI18n',
   setup() {
     const { t } = useI18n({
       inheritLocale: true,
-      useScope: 'local'
+      /* useScope: 'local' */
     })
 
     // Something todo ..
@@ -21,10 +21,10 @@ export default defineComponent({
 })
 </script>
 
-<i18n>
+<i18n-bak>
 {
-  "en": {
+  "aen": {
     "hello": "Hello i18n in SFC!"
   }
 }
-</i18n>
+</i18n-bak>

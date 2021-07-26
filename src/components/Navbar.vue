@@ -10,10 +10,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" id="index" href="/">首页</a>
+                <a class="nav-link" id="index" href="/">{{$t('navbarhome')}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="article" href="/article">文章</a>
+                <a class="nav-link" id="article" href="/article">{{$t('home')}}</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="picture" href="/picture">图片</a>
@@ -39,5 +39,5 @@
 </div>
 </template>
 
-<script scoped>
+<script>
 </script>

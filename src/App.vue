@@ -11,7 +11,8 @@ export default {
   name: 'App',
   components: {
     /* HelloWorld, */
-    Navbar
+    Navbar,
+    /* HelloI18n */
   }
 }
 </script>
