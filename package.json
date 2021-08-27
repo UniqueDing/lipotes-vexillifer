@@ -13,10 +13,14 @@
     "bootstrap": "^5.0.2",
     "core-js": "^3.6.5",
     "markdown-it": "^12.1.0",
+    "markdown-it-anchor": "^8.1.2",
     "markdown-it-plantuml": "^1.4.1",
+    "markdown-it-toc-done-right": "^4.2.0",
     "node-sass": "^6.0.1",
+    "uslug": "^1.0.4",
     "vue": "^3.0.0",
-    "vue-i18n": "^9.1.0"
+    "vue-i18n": "^9.1.0",
+    "vue-router": "^4.0.10"
   },
   "devDependencies": {
     "@intlify/vue-i18n-loader": "^2.1.0",

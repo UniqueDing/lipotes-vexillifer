@@ -1,4 +1,7 @@
 {
-    "navbarhome": "HOME",
-    "home": "test"
+    "home": "home",
+    "article": "article",
+    "picture": "picture",
+    "note": "note",
+    "about": "about"
 }

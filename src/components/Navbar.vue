@@ -1,43 +1,53 @@
 <template>
-    
-<div class="headercontent fixed-top">
-<nav class="navbar navbar-expand-sm navbar-light bg-light headnav">
-    <a class="navbar-brand" href="/">Blog</a>
-    <button class="navbar-toggler btn-link" style="outline: none;border: none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="#">Blog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" id="index" href="/">{{$t('navbarhome')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="article" href="/article">{{$t('home')}}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="picture" href="/picture">图片</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="about" href="/about">关于</a>
+    <div class="collapse navbar-collapse container-fluid" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item" v-for="item in nav_items" :key="item">
+                <router-link class="nav-link" :to="item[1]">{{$t(item[0])}}</router-link>
             </li>
         </ul>
-        <div class="flex-row navbar-nav">
+        <div class="d-flex navbar-nav">
             <li class="nav-item">
-                    <a class="nav-link" id="about" href="?lang=zh">中文</a>
+                <button class="btn" @click="clickZH">zh </button>
+                <button class="btn" @click="clickEN">en </button>
+                <button class="btn" @click="clickJP">jp </button>
             </li>
-			<!-- <li> -->
-			<!-- 	<input class="form-control mr-sm-2" type="search" placeholder="{% if lang == 'en' %}SEARCH{% else %}搜索{% endif %}" aria-label="Search"> -->
-			<!-- </li> -->
         </div>
-        <form class="form-inline my-2 my-lg-0"> 
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> 
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> 
-        </form> 
     </div>
 </nav>
-</div>
 </template>
 
 <script>
+export default{
+    name : 'Navbar',
+    data() {
+        return {
+            nav_items : [["home" , "/"], 
+                        ["article" , "article"],
+                        ["picture" , "picture"],
+                        ["note" , "note"],
+                        ["about" , "about"]],
+        }
+    },
+    mounted() {
+        console.log(this.$route.params.username)
+    },
+    methods: {
+        clickZH() {
+            this.$i18n.locale = 'zh'
+        },
+        clickEN() {
+            this.$i18n.locale = 'en'
+        },
+        clickJP() {
+            this.$i18n.locale = 'jp'
+        },
+    }
+}
 </script>
+<style lang="scss" scoped>
+</style>
