@@ -7,6 +7,8 @@ import Picture from './components/Picture.vue'
 import Article from './components/Article.vue'
 import Note from './components/Note.vue'
 import About from './components/About.vue'
+import Adetail from './components/Adetail.vue'
+import Alist from './components/Alist.vue'
 
 //bootstrap
 import 'bootstrap/dist/css/bootstrap.css'
@@ -17,29 +19,39 @@ import axios from './plugins/axios.js'
 
 const history = createWebHashHistory()
 const router = createRouter({
-  history, // 路由模式
-  routes: [
-    {
-      path: '/',
-      component: Home
-    },
-    {
-      path: '/picture',
-      component: Picture
-    },
-    {
-      path: '/article',
-      component: Article
-    },
-    {
-      path: '/about',
-      component: About
-    },
-    {
-      path: '/note',
-      component: Note
-    }
-  ]
+    history, // 路由模式
+    routes: [
+        {
+            path: '/',
+            component: Home
+        },
+        {
+            path: '/picture',
+            component: Picture
+        },
+        {
+            path: '/article',
+            component: Article,
+            children: [
+                {
+                    path: '',
+                    component: Alist,
+                },
+                {
+                    path: 'detail/:file+',
+                    component: Adetail,
+                },
+            ]
+        },
+        {
+            path: '/about',
+            component: About
+        },
+        {
+            path: '/note',
+            component: Note
+        },
+    ]
 })
 
 createApp(App)

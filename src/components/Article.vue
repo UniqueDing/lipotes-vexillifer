@@ -1,20 +1,15 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <Aleftlist></Aleftlist>
-            <Alist v-on:file_path_click="show_detail" v-show="!is_show_detail"></Alist>
-            <Ataglist v-show="!is_show_detail"></Ataglist>
-
-            <Adetail v-show="!show" :file_path="file"></Adetail>
-        </div>
+    <div class="row">
+        <Aleftlist v-on:file_emit="file_click"></Aleftlist>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import Adetail from './Adetail.vue'
-import Alist from './Alist.vue'
+/* import Adetail from './Adetail.vue' */
+/* import Alist from './Alist.vue' */
 import Aleftlist from './Aleftlist.vue'
-import Ataglist from './Ataglist.vue'
+/* import Ataglist from './Ataglist.vue' */
 
 export default {
     name: "Article",
@@ -25,16 +20,29 @@ export default {
         }
     },
     components: {
-        Adetail,
-        Alist,
-        Ataglist,
+        /* Adetail, */
+        /* Alist, */
+        /* Ataglist, */
         Aleftlist,
     },
+    mounted() {
+    },
     methods: {
-        show_detail(f) {
-            this.file = f
-            console.log(f)
-            this.is_show_detail = true
+        /* show_detail(f) { */
+        /*     this.file = f */
+        /*     console.log(f) */
+        /*     this.is_show_detail = true */
+        /* }, */
+        file_click(file) {
+            if (file == "home") {
+                this.$router.push('/article')
+                return
+            }
+
+            /* this.file = file */
+            console.log("go  "+ file)
+            this.$router.push({path: `/article/detail/${file}`,})
+            /* this.is_show_detail = true */
         }
     },
 }

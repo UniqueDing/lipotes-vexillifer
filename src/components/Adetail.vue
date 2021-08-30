@@ -1,6 +1,6 @@
 <template>
           <div v-html="result" class="col-md-7"></div>
-          <div class="col-md-3">
+          <div class="col-md-2">
             <div class="position-fixed right-list" :style="{height: fullHeight + 'px'}" v-for="group1 in right.c" :key="group1">
                 <div v-for="group2 in group1.c" :key="group2">
                     <div @click="goAnchor('#'+group2.n)" class="right-list-item" :class="{ 'selected-list' : group2.a}"> {{ group2.n }} </div>
@@ -29,19 +29,28 @@ import axios from 'axios'
 
 export default {
     name : 'App',
-    props : ['file_path'],
     data() {
         return{
-            result : null,
-            right : [{l:0,n:0,c:null,a:false}],
-            show : [],
+            result: null,
+            file_path: "",
+            right: [{l:0,n:0,c:null,a:false}],
+            show: [],
             fullHeight: document.documentElement.clientHeight,
         }
     },
     components: {
     },
     created() {
-        console.log(this.$router)
+            if(this.$route.params != '{}')
+            this.file_path = this.$route.params.file[0]+'/'+this.$route.params.file[1]
+        /* this.$watch( */
+        /*   () => this.$route.params, */
+        /*   (toParams, peParams) => { */
+        /*     // 对路由变化做出响应... */
+        /*     console.log(toParams) */
+        /*     this.file_path = peParams.file[0]+'/'+peParams.file[1] */
+        /*   } */
+        /* ) */
     },
     mounted() {
         const that = this
@@ -55,6 +64,13 @@ export default {
         }
     },
     watch : {
+        $route () {
+            console.log(this.$route.params)
+            if(this.$route.params.file != undefined) {
+                this.file_path = this.$route.params.file[0]+'/'+this.$route.params.file[1]
+            }
+            console.log(this.file_path)
+        },
         fullHeight (val) {
             if(!this.timer) {
                 this.fullHeight = val
@@ -70,7 +86,7 @@ export default {
             const uslug = require('uslug')
             const uslugify = s => uslug(s)
             var that = this
-            axios.get(this.file_path).then((res) => {
+            axios.get("./note/" + this.file_path + ".md").then((res) => {
                 /* console.log('res data = ', res.data) */
                 var hljs = require('highlight.js')
                 var md = require('markdown-it')({
@@ -110,14 +126,17 @@ export default {
                       html +
                       '</code></pre>'
                     }
-                }).use(require('markdown-it-plantuml')).use(require('markdown-it-anchor').default, {
+                })
+                .use(require('markdown-it-plantuml'))
+                .use(require('markdown-it-anchor').default, {
                     level: 1,
                     permalinkClass: 'header-anchor',
                     /* permalinkSymbol: '¶', */
                     permalinkSymbol: '%',
                     permalinkBefore: false,
                     slugify: uslugify
-                }).use(require('markdown-it-toc-done-right').default, {
+                })
+                .use(require('markdown-it-toc-done-right').default, {
                     slugify: uslugify,
                     callback: function (html, ast) {
                     //把目录单独列出来
@@ -210,7 +229,7 @@ pre.hljs {
 }
 
 .right-list {
-  overflow: scroll;
+  overflow: auto;
 }
 
 .right-list-item {

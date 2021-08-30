@@ -27,10 +27,10 @@ export default{
     data() {
         return {
             nav_items : [["home" , "/"], 
-                        ["article" , "article"],
-                        ["picture" , "picture"],
-                        ["note" , "note"],
-                        ["about" , "about"]],
+                        ["article" , "/article"],
+                        ["picture" , "/picture"],
+                        ["note" , "/note"],
+                        ["about" , "/about"]],
         }
     },
     mounted() {

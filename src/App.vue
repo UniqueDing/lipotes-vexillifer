@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid global">
         <Navbar></Navbar>
         <router-view></router-view>
     </div>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang='scss'>
-.container{
-    margin-top:5rem;
+.global {
+    padding-top: 5rem;
 }
 </style>
