@@ -19,6 +19,7 @@
         </div>
     </div>
 </nav>
+<div class="placeholder"></div>
 </template>
 
 <script>
@@ -30,6 +31,7 @@ export default{
                         ["article" , "/article"],
                         ["picture" , "/picture"],
                         ["note" , "/note"],
+                        ["ebook" , "/ebook"],
                         ["about" , "/about"]],
         }
     },
@@ -50,4 +52,9 @@ export default{
 }
 </script>
 <style lang="scss" scoped>
+.placeholder {
+    position:relative;
+    height:5rem;
+    display:block;
+}
 </style>

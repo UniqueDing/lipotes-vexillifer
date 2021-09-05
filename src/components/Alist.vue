@@ -1,17 +1,22 @@
 <template>
+A
     <div class="col-md-7">
-        <div class="item" v-for="item in show_list" :key="item" @click="jump(item.path)">
-            <div> {{item.title}} </div>
-            <div> {{item.data}} </div>
-            <div> {{item.author}} </div>
-            <div> {{item.tag}} </div>
-            <div> {{item.summary}} </div>
+        <div class="item card" v-for="item in show_list" :key="item" @click="jump(item.path)">
+            <div class="card-body">
+                <h4 class="card-title title"> {{item.title}} </h4>
+                <div class="mb-2 mt-1 card-subtitle text-muted">
+                <span class="date"> {{item.date}} &nbsp;</span>
+                <span class="author"> {{item.author}} &nbsp;</span>
+                <span class="tag" v-for="tag in item.tag" :key="tag">&lt;{{tag}}&gt;&nbsp;</span>
+                </div>
+                <p class="card-text summary"> {{item.summary}} </p>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import axios from 'axios'
+import axios from 'axios'
 
     export default {
         name: "Alist",
@@ -21,19 +26,16 @@
                 show_index: 30,
                 current_list: [],
                 total_list: [],
+                dic: '',
+                file_list: this.$route.params.list,
             }
         },
         created() {
         },
         mounted() {
-            axios.get('./note/listhome.json').then((res) => {
-                console.log('res data = ', res.data)
-                this.total_list = res.data.home
-                this.current_list = res.data.home
-                this.show_list = this.current_list.slice(0, this.show_index)
-                console.log('show_list = ', this.show_list)
-            })
-            var that = this
+            this.dic = this.$route.path.split('/')[1]
+            this.reloadList()
+            var that=this
             this.$nextTick(() => {
                 // this.initScroll()
                 window.onscroll = function() {
@@ -48,13 +50,35 @@
             })
         },
         watch: {
-            file_list () {
-                console.log(this.file_list)
+            $route () {
+                this.reloadList()
             },
+            /* total_list() { */
+            /*     this.show_index = 30 */
+            /*     this.current_list = this.total_list */
+            /*     this.show_list = this.current_list.slice(0, this.show_index) */
+            /* } */
         },
         methods: {
             jump (path) {
-            this.$router.push({path: `/article/detail/${path}`,})
+                this.$router.push({path: `/article/detail/${path}`,})
+            },
+            reloadList() {
+                var that=this
+                axios.get('/'+that.dic+'/list.json').then((res) => {
+                    console.log('res data = ', res.data)
+                    console.log(that.$route.params)
+                    if(that.$router.params == undefined) {
+                        that.total_list = res.data.total['home']
+                    } else {
+                        console.log(that.file_list)
+                        that.total_list = res.data.total[that.file_list]
+                    }
+                    that.show_index = 30
+                    that.current_list = that.total_list
+                    that.show_list = that.current_list.slice(0, that.show_index)
+                    console.log('show_list = ', that.show_list)
+                })
             }
 
         }
@@ -64,6 +88,7 @@
 
 <style scoped>
 .item {
-    border: 1px blue solid;
+    margin:1rem;
 }
+
 </style>
