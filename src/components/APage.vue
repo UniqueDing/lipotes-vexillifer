@@ -25,7 +25,6 @@ export default {
         if(JSON.stringify(this.$route.params) === "{}") {
             this.$router.push({path: `/${this.dic}/list/home`})
         }
-        
     },
     methods: {
         file_click(file) {

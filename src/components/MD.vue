@@ -1,5 +1,11 @@
 <template>
-    <div v-html="result"></div>
+    <div>
+        <div class="meta">
+            <span>{{meta.author}} post:{{meta.date}}</span>
+            <span class="item" v-for="item in meta.tag" :key="item">{{item}}</span>
+        </div>
+        <div v-html="result"></div>
+    </div>
 </template>
 
 <script>
@@ -10,10 +16,11 @@ import axios from 'axios'
 export default {
     name: 'MD',
     props: ['file_path'],
-    emits: ['right_list_emit'],
+    emits: ['right_list_emit', 'meta_emit'],
     data() {
         return{
             result: null,
+            meta: '',
         }
     },
     mounted() {
@@ -87,8 +94,17 @@ export default {
                         that.$emit("right_list_emit", ast)
                     }
                 })
+                .use(require('markdown-it-meta'))
 
-                this.result = md.render(res.data);
+                this.result = md.render(res.data)
+                this.meta = md.meta
+                console.log(this.meta)
+
+                let env = this.file_path.substr(0, this.file_path.lastIndexOf('/'))
+                this.result = this.result.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi,function(match,capture){
+                    let newStr='<img class="img-fluid" src="'+env+'/'+capture+'"/>';
+                    return newStr;
+                });
             })
 
         },
@@ -128,5 +144,18 @@ pre.hljs {
     color: #999;
     pointer-events: none;
   }
+}
+
+.meta {
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+    color: #333;
+}
+
+.meta .item {
+    padding:0.1rem;
+    margin:0.2rem;
+    border:0.1rem solid #aaa;
+    border-radius:0.7rem;
 }
 </style>

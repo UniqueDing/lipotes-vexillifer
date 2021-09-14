@@ -1,5 +1,4 @@
 <template>
-A
     <div class="col-md-7">
         <div class="item card" v-for="item in show_list" :key="item" @click="jump(item.path)">
             <div class="card-body">
@@ -89,6 +88,11 @@ import axios from 'axios'
 <style scoped>
 .item {
     margin:1rem;
+    border-radius:2.5rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    border-width:0;
+    background-color:#f8f8f2;
 }
 
 </style>

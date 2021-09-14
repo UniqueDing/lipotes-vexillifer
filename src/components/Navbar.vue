@@ -35,9 +35,6 @@ export default{
                         ["about" , "/about"]],
         }
     },
-    mounted() {
-        console.log(this.$route.params.username)
-    },
     methods: {
         clickZH() {
             this.$i18n.locale = 'zh'
