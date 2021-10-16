@@ -1,0 +1,14 @@
+version: '3'
+services:
+    lip:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+          - 22010:80
+        restart: always
+        volumes:
+          - ./test/note:/lipotes-vexillifer/note
+          - ./test/article:/lipotes-vexillifer/article
+          - ./test/picture:/lipotes-vexillifer/picture
+          - ./test/ebook:/lipotes-vexillifer/ebook

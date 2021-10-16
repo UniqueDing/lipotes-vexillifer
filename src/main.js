@@ -1,25 +1,39 @@
 import './plugins/axios'
 import { createApp } from 'vue'
-import { createWebHashHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter } from 'vue-router'
 import App from './App.vue'
 import Home from './components/Home.vue'
 import Picture from './components/Picture.vue'
-import Article from './components/Article.vue'
-import Note from './components/Note.vue'
+import APage from './components/APage.vue'
+// import Note from './components/Note.vue'
 import About from './components/About.vue'
 import Adetail from './components/Adetail.vue'
 import Alist from './components/Alist.vue'
+import Ebook from './components/Ebook.vue'
+import Edetail from './components/Edetail.vue'
 
 //bootstrap
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.bundle.js'
+
 import i18n from './i18n'
 import axios from './plugins/axios.js'
 
 
-const history = createWebHashHistory()
+const scrollBehavior = function (to) {
+    if (to.hash) {
+        return {
+            el: to.hash,
+            behavior: 'smooth',
+            top: 70,
+        }
+    }
+}
+
 const router = createRouter({
-    history, // 路由模式
+    history: createWebHistory(), // 路由模式
+    scrollBehavior,
+    base: '/',
     routes: [
         {
             path: '/',
@@ -31,10 +45,10 @@ const router = createRouter({
         },
         {
             path: '/article',
-            component: Article,
+            component: APage,
             children: [
                 {
-                    path: '',
+                    path: 'list/:list',
                     component: Alist,
                 },
                 {
@@ -44,12 +58,30 @@ const router = createRouter({
             ]
         },
         {
-            path: '/about',
-            component: About
+            path: '/note',
+            component: APage,
+            children: [
+                {
+                    path: 'list/:list',
+                    component: Alist,
+                },
+                {
+                    path: 'detail/:file+',
+                    component: Adetail,
+                },
+            ]
         },
         {
-            path: '/note',
-            component: Note
+            path: '/ebook/:list?',
+            component: Ebook
+        },
+        {
+            path: '/ebook/detail/:file+',
+            component: Edetail
+        },
+        {
+            path: '/about',
+            component: About
         },
     ]
 })

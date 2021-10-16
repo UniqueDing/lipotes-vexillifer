@@ -97,16 +97,35 @@ export default {
                 .use(require('markdown-it-meta'))
 
                 this.result = md.render(res.data)
+                if (this.$route.hash != '') {
+                    this.sleep(100).then(() => {
+                        this.goAnchor(this.$route.hash)
+                    })
+                }
                 this.meta = md.meta
                 console.log(this.meta)
 
                 let env = this.file_path.substr(0, this.file_path.lastIndexOf('/'))
                 this.result = this.result.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi,function(match,capture){
-                    let newStr='<img class="img-fluid" src="'+env+'/'+capture+'"/>';
-                    return newStr;
-                });
+                    let newStr='<img class="img-fluid" src="'+env+'/'+capture+'"/>'
+                    return newStr
+                })
+
             })
 
+        },
+        sleep (time) {
+            return new Promise((resolve) => setTimeout(resolve, time));
+        },
+        goAnchor(selector) {
+            let anchor = document.querySelector(selector)
+            console.log(selector)
+            console.log(anchor)
+            console.log(anchor.offsetTop)
+            document.documentElement.scrollTop = anchor.offsetTop - this.convertRemToPixels(5)
+        },
+        convertRemToPixels(rem) {
+            return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
         },
     },
 }

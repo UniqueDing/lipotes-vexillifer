@@ -9,12 +9,16 @@
 import Aleftlist from './Aleftlist.vue'
 
 export default {
-    name: "Article",
+    name: "APage",
     data() {
         return {
             is_show_detail: false,
             file: '',
             dic: '',
+            page: [
+                'article',
+                'note',
+            ]
         }
     },
     components: {
@@ -24,6 +28,15 @@ export default {
         this.dic = this.$route.path.split("/")[1]
         if(JSON.stringify(this.$route.params) === "{}") {
             this.$router.push({path: `/${this.dic}/list/home`})
+        }
+    },
+    watch: {
+        $route() {
+            this.dic = this.$route.path.split("/")[1]
+            console.log('dic ' + this.dic + " " + this.page.indexOf(this.dic))
+            if(this.page.indexOf(this.dic) >= 0 && JSON.stringify(this.$route.params) === "{}") {
+                this.$router.push({path: `/${this.dic}/list/home`})
+            }
         }
     },
     methods: {

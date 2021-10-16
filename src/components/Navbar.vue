@@ -1,22 +1,28 @@
 <template>
 <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-    <a class="navbar-brand" href="#">Blog</a>
+    <a class="navbar-brand" href="#"> Blog </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse container-fluid" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
             <li class="nav-item" v-for="item in nav_items" :key="item">
-                <router-link class="nav-link" :to="item[1]">{{$t(item[0])}}</router-link>
+                <router-link class="nav-link pl-4" :to="item[1]">{{$t(item[0])}}</router-link>
             </li>
         </ul>
-        <div class="d-flex navbar-nav">
+        <ul class="ms-auto navbar-nav">
+<!--            <li class="nav-item"> -->
+<!--                <form class="d-flex"> -->
+<!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+<!--                    <button class="btn btn-outline-success" type="submit">Search</button> -->
+<!--                </form> -->
+<!--            </li> -->
             <li class="nav-item">
-                <button class="btn" @click="clickZH">zh </button>
-                <button class="btn" @click="clickEN">en </button>
-                <button class="btn" @click="clickJP">jp </button>
+                <button class="btn" @click="clickZH"><img class="img-fluid language" src="../assets/language/Chinese.png" alt="zh"/></button>
+                <button class="btn" @click="clickEN"><img class="img-fluid language" src="../assets/language/English.png" alt="en"/></button>
+                <button class="btn" @click="clickJP"><img class="img-fluid language" src="../assets/language/Japanese.png" alt="jp"/></button>
             </li>
-        </div>
+        </ul>
     </div>
 </nav>
 <div class="placeholder"></div>
@@ -53,5 +59,11 @@ export default{
     position:relative;
     height:5rem;
     display:block;
+}
+
+.language {
+    width:1.5rem;
+    height:1rem;
+    border-radius:0.2rem;
 }
 </style>

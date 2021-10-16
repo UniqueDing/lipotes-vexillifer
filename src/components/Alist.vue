@@ -1,14 +1,18 @@
 <template>
     <div class="col-md-7">
         <div class="item card" v-for="item in show_list" :key="item" @click="jump(item.path)">
-            <div class="card-body">
-                <h4 class="card-title title"> {{item.title}} </h4>
-                <div class="mb-2 mt-1 card-subtitle text-muted">
-                <span class="date"> {{item.date}} &nbsp;</span>
-                <span class="author"> {{item.author}} &nbsp;</span>
-                <span class="tag" v-for="tag in item.tag" :key="tag">&lt;{{tag}}&gt;&nbsp;</span>
+            <div class="card-body row">
+                <div class="col-8">
+                    <h4 class="card-title title"> {{item.title}} </h4>
+                    <div class="mb-2 mt-1 card-subtitle text-muted">
+                        <span class="date"> {{item.date}} &nbsp;</span>
+                        <span class="author"> {{item.author}} &nbsp;</span>
+                        <span class="tag" v-for="tag in item.tag" :key="tag">&lt;{{tag}}&gt;&nbsp;</span>
+                    </div>
+                    <p class="card-text summary"> {{item.summary}} </p>
                 </div>
-                <p class="card-text summary"> {{item.summary}} </p>
+                <div class="pic col-4">
+                <img class="img-fluid" :src="env +'/'+item.cover" v-if="item.cover"/></div>
             </div>
         </div>
     </div>
@@ -27,12 +31,15 @@ import axios from 'axios'
                 total_list: [],
                 dic: '',
                 file_list: this.$route.params.list,
+                env: '',
             }
-        },
-        created() {
         },
         mounted() {
             this.dic = this.$route.path.split('/')[1]
+            this.env = this.$route.path.substr(0, this.$route.path.lastIndexOf('/'))
+            console.log("env" + this.env)
+            this.env = this.env.substr(0, this.env.lastIndexOf('/'))
+            console.log("env" + this.env)
             this.reloadList()
             var that=this
             this.$nextTick(() => {
@@ -44,7 +51,7 @@ import axios from 'axios'
                     if(scrollTop + windowHeight >= scrollHeight - 300){
                         that.show_list = that.show_list.concat(that.current_list.slice(that.show_index, that.show_index + 20))
                         that.show_index += 20
-                    }  
+                    }
                 }
             })
         },
@@ -68,10 +75,10 @@ import axios from 'axios'
                     console.log('res data = ', res.data)
                     console.log(that.$route.params)
                     if(that.$router.params == undefined) {
-                        that.total_list = res.data.total['home']
+                        that.total_list = res.data['total']
                     } else {
                         console.log(that.file_list)
-                        that.total_list = res.data.total[that.file_list]
+                        that.total_list = res.data[that.file_list]
                     }
                     that.show_index = 30
                     that.current_list = that.total_list

@@ -1,25 +1,31 @@
 <template>
-    <div class="container">
-        <MD :file_path="file_path"></MD>
-    </div>
+<div>
+    <MD :file_path="file_path"></MD>
+</div>
 </template>
 
 <script>
-import MD from "./MD"
+import MD from './MD.vue'
+import axios from 'axios'
 
 export default {
-    name : 'App',
+    name: "Home",
     data() {
-        return{
-            // TODO read from file
-            file_path: "/article/test/markdown.md"
+        return {
+            file_path:''
         }
     },
     components: {
         MD,
     },
+    mounted() {
+        var that = this
+        axios.get('/article/list.json').then((res) => {
+            that.file_path = 'article/' + res.data.web.home
+        })
+    }
 }
 </script>
 
-<style lang='scss'>
+<style scoped>
 </style>
