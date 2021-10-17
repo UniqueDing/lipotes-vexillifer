@@ -40,6 +40,7 @@ import axios from 'axios'
             console.log("env" + this.env)
             this.env = this.env.substr(0, this.env.lastIndexOf('/'))
             console.log("env" + this.env)
+            document.documentElement.scrollTop = 0;
             this.reloadList()
             var that=this
             this.$nextTick(() => {
@@ -57,6 +58,7 @@ import axios from 'axios'
         },
         watch: {
             $route () {
+                document.documentElement.scrollTop = 0;
                 this.reloadList()
             },
             /* total_list() { */
@@ -74,11 +76,12 @@ import axios from 'axios'
                 axios.get('/'+that.dic+'/list.json').then((res) => {
                     console.log('res data = ', res.data)
                     console.log(that.$route.params)
-                    if(that.$router.params == undefined) {
+                    let list = that.$route.params.list
+                    console.log(list)
+                    if(list == 'home') {
                         that.total_list = res.data['total']
                     } else {
-                        console.log(that.file_list)
-                        that.total_list = res.data[that.file_list]
+                        that.total_list = res.data.list[list]
                     }
                     that.show_index = 30
                     that.current_list = that.total_list

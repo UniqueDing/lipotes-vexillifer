@@ -1,13 +1,15 @@
 <template>
-    <div class="col-md-9">
+    <div class="container-fluid col-md-10">
         <div class="row">
-            <div class="card" style="width: 18rem;" v-for="item in show_list" :key="item">
-                <img :src="item.cover" class="card-img-top" :alt="item.title">
-                <div class="card-body">
-                    <h5 class="card-title">{{item.title}}</h5>
-                    <h6 class="card-title">{{item.creator}}</h6>
-                    <h6 class="card-text">{{item.date}} {{item.publisher}}</h6>
-                    <p class="card-text">{{item.description.substr(0,60)}}</p>
+            <div class="col-md-2" v-for="item in show_list" :key="item">
+                <div class="card" @click="jump(item.path)">
+                    <img :src="item.cover" class="card-img-top" :alt="item.title">
+                    <div class="card-body">
+                        <h5 class="card-title">{{item.title}}</h5>
+                        <h6 class="card-title">{{item.creator}}</h6>
+                        <h6 class="card-text">{{item.date}} {{item.publisher}}</h6>
+                        <p class="card-text">{{item.description.substr(0,30)}}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,7 +25,7 @@ export default {
     data() {
         return {
             show_list: [],
-            show_index: 30,
+            show_index: 20,
             current_list: [],
             total_list: [],
             dic: '',
@@ -61,11 +63,6 @@ export default {
         $route () {
             this.reloadList()
         },
-        /* total_list() { */
-        /*     this.show_index = 30 */
-        /*     this.current_list = this.total_list */
-        /*     this.show_list = this.current_list.slice(0, this.show_index) */
-        /* } */
     },
     methods: {
         jump (path) {
@@ -73,16 +70,17 @@ export default {
         },
         reloadList() {
             var that=this
+            document.documentElement.scrollTop = 0;
             axios.get('/'+that.dic+'/list.json').then((res) => {
                 console.log('res data = ', res.data)
                 console.log(that.$route.params)
-                if(that.$router.params == undefined) {
+                let list = that.$route.params.list
+                if(list == 'home' || list == '') {
                     that.total_list = res.data['total']
                 } else {
-                    console.log(that.file_list)
-                    that.total_list = res.data[that.file_list]
+                    that.total_list = res.data.list[list]
                 }
-                that.show_index = 30
+                that.show_index = 20
                 that.current_list = that.total_list
                 that.show_list = that.current_list.slice(0, that.show_index)
                 console.log('show_list = ', that.show_list)
@@ -106,7 +104,7 @@ export default {
 
 <style scoped>
 .card {
-    margin: 1rem;
+    margin: 0.4rem;
     border-radius: 1rem;
 }
 </style>

@@ -35,7 +35,7 @@ export default{
         return {
             nav_items : [["home" , "/"], 
                         ["article" , "/article"],
-                        ["picture" , "/picture"],
+                        /* ["picture" , "/picture"], */
                         ["note" , "/note"],
                         ["ebook" , "/ebook"],
                         ["about" , "/about"]],

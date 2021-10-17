@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <Aleftlist :is_show_file=false v-on:list_emit="list_click"/>
+        <Aleftlist :left_width="1" :is_show_file=false v-on:list_emit="list_click"/>
         <Elist/>
     </div>
 </template>

@@ -1,15 +1,17 @@
 <template>
     <div class="container">
-        <div>
-            <button class="btn" @click="prev">prev</button>
-            <button class="btn" @click="next">next</button>
-        </div>
         <div class="row">
-            <div class="col-md-9" id="viewer"></div>
-            <div class="col-md-3">
-                <div class="postion-fixed">
+            <div class="col-md-1">
+                <button class="btn position-fixed" @click="prev">prev</button>
+            </div>
+            <div class="col-md-8" id="viewer"></div>
+            <div class="col-md-2">
+                <div class="position-fixed">
                     <div v-for="item in toc" :key="item" @click="clickToc(item.href)">{{item.label}}<br></div>
                 </div>
+            </div>
+            <div class="col-md-1">
+                <button class="btn position-fixed" @click="next">next</button>
             </div>
         </div>
     </div>
@@ -25,32 +27,48 @@ import ePub from "epubjs"
                 rendition: '',
                 toc: [],
                 cover: '',
+                file_path: '',
             }
         },
         mounted() {
-            let that = this
-            var book = ePub("./test.epub")
-            book.coverUrl().then( function(cover) {
-                that.cover = cover
-            })
-            console.log(book)
-            console.log(this.cover)
-            this.rendition = book.renderTo("viewer", {
-                manager: "continuous",
-                /* flow: "scrolled", */
-                /* flow : "scrolled-doc", */
-                methods: "default",
-                width : "100%",
-            })
-            this.rendition.display();
-            book.loaded.navigation.then(function(toc) {
-                console.log(toc)
-                /* that.toc = that.recursionHandle(toc.toc, [], 0).join('') */
-                that.toc = that.recursionHandle(toc.toc, [], 0)
-                console.log(that.toc)
-            })
+            this.getFilePath()
+            this.open()
+        },
+        watch: {
+            $route () {
+                if (this.$route.path.split('/')[1] == 'ebook' && this.$route.path.split('/')[2] == 'detail' && this.$route.params.file !== undefined) {
+                    document.documentElement.scrollTop = 0;
+                    this.getFilePath()
+                    this.open()
+                }
+            },
         },
         methods: {
+            getFilePath() {
+                this.file_path = '/ebook/' + this.$route.params.file[0] + '/' + this.$route.params.file[1]
+            },
+            open() {
+                let that = this
+                console.log(this.file_path)
+                var book = ePub(this.file_path)
+                console.log(book)
+                this.rendition = book.renderTo("viewer", {
+                    /* manager: "continuous", */
+                    flow: "scrolled",
+                    /* flow : "scrolled-doc", */
+                    /* flow: "paginated", */
+                    methods: "default",
+                    width : "100%",
+                })
+                this.rendition.display();
+                book.loaded.navigation.then(function(toc) {
+                    console.log(toc)
+                    /* that.toc = that.recursionHandle(toc.toc, [], 0).join('') */
+                    that.toc = that.recursionHandle(toc.toc, [], 0)
+                    console.log(that.toc)
+                })
+
+            },
             prev() {
                 this.rendition.prev()
             },

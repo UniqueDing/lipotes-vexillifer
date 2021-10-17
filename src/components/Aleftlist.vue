@@ -1,7 +1,7 @@
 <template>
-    <div class="col-md-3">
+    <div :class="'col-md-'+left_width">
         <div :style="{height: fullHeight + 'px'}">
-            <div class="list-group position-fixed left-list">
+            <div class="list-group position-fixed left-list" :style="{width: left_width / 15 * 100 + '%'}">
                 <li class="list-group-item item" aria-current="true" @click="$emit('list_emit', 'home')"> HOME </li>
                 <div v-for="(item, key) in total_list" :key="item">
                     <div>
@@ -28,8 +28,11 @@
         emits: ['file_emit', 'list_emit'],
         props: {
             is_show_file : {
-                default: true
-            }
+                default: true,
+            },
+            left_width: {
+                default: 3,
+            },
         },
         data() {
             return {
@@ -101,7 +104,6 @@
   overflow: auto;
   margin-left:2rem;
   border-radius:1rem;
-  width:20%;
 }
 .left-list .item {
   background-color:#f1fa8c;
