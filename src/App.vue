@@ -2,8 +2,8 @@
     <div class="container-fluid global">
         <Navbar></Navbar>
         <router-view></router-view>
-        <Footer></Footer>
     </div>
+    <Footer></Footer>
 </template>
 
 <script>

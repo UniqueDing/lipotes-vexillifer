@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-8" id="viewer"></div>
             <div class="col-md-2">
-                <div class="position-fixed">
+                <div class="position-fixed right-list">
                     <div v-for="item in toc" :key="item" @click="clickToc(item.href)">{{item.label}}<br></div>
                 </div>
             </div>
@@ -98,4 +98,7 @@ import ePub from "epubjs"
 </script>
 
 <style scoped>
+.right-list {
+    color: #555;
+}
 </style>

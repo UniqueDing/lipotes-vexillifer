@@ -8,7 +8,7 @@ services:
           - 22010:80
         restart: always
         volumes:
-          - ./test/note:/lipotes-vexillifer/note
-          - ./test/article:/lipotes-vexillifer/article
-          - ./test/picture:/lipotes-vexillifer/picture
-          - ./test/ebook:/lipotes-vexillifer/ebook
+          - ./path/to/note:/lipotes-vexillifer/note
+          - ./path/to/article:/lipotes-vexillifer/article
+          - ./path/to/picture:/lipotes-vexillifer/picture
+          - ./path/to/ebook:/lipotes-vexillifer/ebook

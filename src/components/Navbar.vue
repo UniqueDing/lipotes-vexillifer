@@ -1,6 +1,6 @@
 <template>
 <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-    <a class="navbar-brand" href="#"> Blog </a>
+    <a class="navbar-brand" href="#"> Lipotes Vexillifer </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

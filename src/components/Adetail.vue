@@ -7,7 +7,9 @@
     <el-scrollbar>
         <div class="position-fixed right-list" :style="{height: fullHeight + 'px'}" v-for="group1 in right_list.c" :key="group1">
             <div v-for="group2 in group1.c" :key="group2">
-                <router-link :to="'#'+group2.n.toLowerCase()" class="right-list-item" :class="{ 'selected-list' : group2.a}"> {{ group2.n }} </router-link>
+                <div class="right-list-item" :class="{ 'selected-list' : group2.a}">
+                    <router-link :to="'#'+group2.n.toLowerCase()"> {{ group2.n }} </router-link>
+                </div>
                 <div v-for="(group3, index) in group2.c" :key="group3">
                     <div class="right-list-item" :class="{ 'selected-list' : group3.a}">
                         <svg @click="show[index]=!show[index]" :class="{ 'arrowTransform': !show[index], 'arrowTransformReturn': show[index]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
@@ -134,22 +136,30 @@ export default {
 <style lang='scss'>
 .right-list {
   overflow: auto;
+  z-index: -1;
 }
 
 .right-list-item {
-  border-left-color: rgb(178, 172, 162);
-  border-left-width: 0.3rem;
+  border-left-color: #75b1a9;
+  border-left-width: 0.2rem;
   border-left-style: solid;
   padding-left: 1em;
   text-decoration:none;
+  color: #757575;
 }
 
 .right-list-item a {
   text-decoration:none;
+  color: #757575;
 }
 
 .selected-list {
-  background-color: rgb(178, 172, 162);
+  background-color: #75b1a9;
+  color: #fff;
+}
+
+.selected-list a {
+  color: #fff;
 }
 
 .right-list .place {
