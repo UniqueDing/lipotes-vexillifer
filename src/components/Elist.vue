@@ -30,15 +30,10 @@ export default {
             total_list: [],
             dic: '',
             file_list: this.$route.params.list,
-            env: '',
         }
     },
     mounted() {
         this.dic = this.$route.path.split('/')[1]
-        this.env = this.$route.path.substr(0, this.$route.path.lastIndexOf('/'))
-        console.log("env" + this.env)
-        this.env = this.env.substr(0, this.env.lastIndexOf('/'))
-        console.log("env" + this.env)
         this.reloadList()
         var that=this
         this.$nextTick(() => {
@@ -61,7 +56,11 @@ export default {
     },
     watch: {
         $route () {
-            this.reloadList()
+            if (this.$route.params.list == '') {
+                this.$router.push({path: `/ebook/home`,})
+            } else {
+                this.reloadList()
+            }
         },
     },
     methods: {
@@ -92,6 +91,7 @@ export default {
         getCover(item) {
             var book = ePub(item.path)
             item.cover = require('../assets/book.png')
+            console.log('getcover' + item.path)
             book.coverUrl().then( function(cover) {
                 console.log(cover)
                 item.cover = cover
