@@ -34,7 +34,6 @@ export default {
     },
     mounted() {
         this.dic = this.$route.path.split('/')[1]
-        this.reloadList()
         var that=this
         this.$nextTick(() => {
             // this.initScroll()
@@ -53,6 +52,11 @@ export default {
                 }
             }
         })
+        if (this.$route.params.list == '') {
+            this.$router.push({path: `/ebook/home`,})
+        } else {
+            this.reloadList()
+        }
     },
     watch: {
         $route () {
