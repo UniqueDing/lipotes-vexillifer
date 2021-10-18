@@ -31,6 +31,7 @@ export default {
 
 <style scoped>
 .footer {
+    margin-top:4rem;
     position: absolute;
     background-color: #000;
     width: 100%;
