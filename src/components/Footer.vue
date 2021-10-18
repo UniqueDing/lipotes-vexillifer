@@ -1,5 +1,5 @@
 <template>
-    <div class="footer">
+    <footer class="footer">
         <div class="row">
             <div class="col-md-3" v-for="items in content" :key="items">
                 <h5>{{items.name}}</h5>
@@ -8,7 +8,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 </template>
 
 <script>
@@ -35,9 +35,9 @@ export default {
     background-color: #000;
     width: 100%;
     padding: 4rem;
-    padding-left:8rem;
+    padding-left:10rem;
     color: #fff;
-    /* z-index:9999; */
+    z-index:9999;
 }
 .footer a {
     text-decoration:none;

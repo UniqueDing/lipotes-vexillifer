@@ -136,7 +136,6 @@ export default {
 <style lang='scss'>
 .right-list {
   overflow: auto;
-  z-index: -1;
 }
 
 .right-list-item {

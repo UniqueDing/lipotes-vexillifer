@@ -21,5 +21,6 @@ export default {
 
 <style lang='scss'>
 .global{
+    min-height: 100rem;
 }
 </style>
