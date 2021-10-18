@@ -5,11 +5,12 @@
                 <li class="list-group-item item" aria-current="true" @click="$emit('list_emit', 'home')"> HOME </li>
                 <div v-for="(item, key) in total_list" :key="item">
                     <div>
-                    <li class="list-group-item item" aria-current="true" @click="$emit('list_emit', key)">
-                    <svg v-show="is_show_file" @click="show[key]=!show[key]" :class="{ 'arrowTransform': show[key], 'arrowTransformReturn': !show[key]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                    <li class="list-group-item item" @click="$emit('list_emit', key)" aria-current="true">
+                    <svg v-show="is_show_file" @click.stop="show[key]=!show[key]" :class="{ 'arrowTransform': show[key], 'arrowTransformReturn': !show[key]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                         <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                     </svg>
-                    {{key}} </li>
+                    <span class="place"/>{{key}}
+                    </li>
                     <li v-show="show[key] && is_show_file" class="list-group-item item" aria-current="true" :class="{ 'selected-list' : item.selected}" v-for="item in item" :key="item" @click="$emit('file_emit', item.path)">
                         <span class="place"/>{{item.title}}
                     </li>
@@ -107,6 +108,7 @@
 }
 .left-list .item {
   background-color:#f1fa8c;
+  cursor: pointer;
 }
 
 .left-list .selected-list {

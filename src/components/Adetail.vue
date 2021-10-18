@@ -145,6 +145,7 @@ export default {
   padding-left: 1em;
   text-decoration:none;
   color: #757575;
+  cursor: pointer;
 }
 
 .right-list-item a {
