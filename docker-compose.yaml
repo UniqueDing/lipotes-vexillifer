@@ -12,3 +12,4 @@ services:
           - ./path/to/article:/lipotes-vexillifer/article
           - ./path/to/picture:/lipotes-vexillifer/picture
           - ./path/to/ebook:/lipotes-vexillifer/ebook
+          - ./path/to/config:/lipotes-vexillifer/config

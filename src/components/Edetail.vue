@@ -10,7 +10,7 @@
             </div>
             <div class="col-md-8" id="viewer"></div>
             <div class="col-md-2">
-                <div class="position-fixed right-list">
+                <div class="position-fixed right-list" :style="{height: fullHeight + 'px'}">
                     <div v-for="item in toc" :key="item" @click="clickToc(item.href)">{{item.label}}<br></div>
                 </div>
             </div>
@@ -27,6 +27,7 @@
 
 <script>
 import ePub from "epubjs"
+/* import InlineView from 'epubjs/lib/managers/views/inline' */
 
     export default {
         name: "Edetail",
@@ -36,16 +37,27 @@ import ePub from "epubjs"
                 toc: [],
                 cover: '',
                 file_path: '',
+                fullHeight: document.documentElement.clientHeight,
+                book: '',
+                last_url: '',
             }
         },
         mounted() {
+            var that = this
+            window.addEventListener('scroll',this.scrollHandle)
+            window.onresize = () => {
+                return (() => {
+                    window.fullHeight = document.documentElement.clientHeight
+                    that.fullHeight = window.fullHeight
+                })()
+            }
             this.getFilePath()
             this.open()
         },
         watch: {
             $route () {
                 if (this.$route.path.split('/')[1] == 'ebook' && this.$route.path.split('/')[2] == 'detail' && this.$route.params.file !== undefined) {
-                    document.documentElement.scrollTop = 0;
+                    document.documentElement.scrollTop = 0
                     this.getFilePath()
                     this.open()
                 }
@@ -58,19 +70,20 @@ import ePub from "epubjs"
             open() {
                 let that = this
                 console.log(this.file_path)
-                var book = ePub(this.file_path)
-                console.log(book)
-                this.rendition = book.renderTo("viewer", {
+                this.book = ePub(this.file_path)
+                console.log(this.book)
+                this.rendition = this.book.renderTo("viewer", {
                     /* manager: "continuous", */
                     flow: "scrolled",
+                    /* view: InlineView, */
                     /* flow : "scrolled-doc", */
                     /* flow: "paginated", */
                     methods: "default",
                     width : "100%",
                 })
                 this.rendition.display();
-                book.loaded.navigation.then(function(toc) {
-                    console.log(toc)
+                this.book.loaded.navigation.then(function(toc) {
+                    /* console.log(toc) */
                     /* that.toc = that.recursionHandle(toc.toc, [], 0).join('') */
                     that.toc = that.recursionHandle(toc.toc, [], 0)
                     console.log(that.toc)
@@ -78,9 +91,11 @@ import ePub from "epubjs"
 
             },
             prev() {
+                document.documentElement.scrollTop = 0
                 this.rendition.prev()
             },
             next() {
+                document.documentElement.scrollTop = 0
                 this.rendition.next()
             },
             recursionHandle (toc, doc, i) {
@@ -97,10 +112,27 @@ import ePub from "epubjs"
                 return doc
             },
             clickToc(url) {
-                console.log(url)
                 this.rendition.display(url)
-            }
-
+                /* console.log(url) */
+                /* console.log(this.last_url) */
+                /* let uu = url.split("#")[0] */
+                /* if (uu !== this.last_url) { */
+                /*     this.rendition.display(url.split("#")[0]) */
+                /* } */
+                /* if (url.split('#')[1]) { */
+                /*     this.goAnchor('#' + url.split("#")[1]) */
+                /* } */
+                /* this.last_url = uu */
+            },
+            goAnchor(selector) {
+                let anchor = document.querySelector(selector)
+                console.log(selector)
+                console.log(anchor.offsetTop)
+                document.documentElement.scrollTop = anchor.offsetTop - this.convertRemToPixels(5)
+            },
+            convertRemToPixels(rem) {
+                return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+            },
         },
     }
 </script>
@@ -108,10 +140,12 @@ import ePub from "epubjs"
 <style scoped>
 .right-list {
     color: #555;
+    overflow: auto;
+    cursor: pointer;
 }
 
 .next {
-    margin-top:25%;
+    margin-top:20%;
     color: #aaa;
     cursor: pointer;
 }

@@ -34,10 +34,10 @@ export default{
     data() {
         return {
             nav_items : [["home" , "/"], 
-                        ["article" , "/article"],
+                        ["article" , "/article/list/home"],
                         /* ["picture" , "/picture"], */
-                        ["note" , "/note"],
-                        ["ebook" , "/ebook"],
+                        ["note" , "/note/list/home"],
+                        ["ebook" , "/ebook/home"],
                         ["about" , "/about"]],
         }
     },

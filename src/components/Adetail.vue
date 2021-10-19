@@ -12,18 +12,18 @@
                 </div>
                 <div v-for="(group3, index) in group2.c" :key="group3">
                     <div class="right-list-item" :class="{ 'selected-list' : group3.a}">
-                        <svg @click="show[index]=!show[index]" :class="{ 'arrowTransform': !show[index], 'arrowTransformReturn': show[index]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                        <svg @click.stop="show[index]=!show[index]" :class="{ 'arrowTransform': !show[index], 'arrowTransformReturn': show[index]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                             <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                         </svg>
                         <router-link :to="'#'+group3.n.toLowerCase()"> <span class="place"/>{{ group3.n }}</router-link> 
                     </div>
-                    <transition name="fade">
+                    <!-- <transition name="fade">-->
                     <div v-show="!show[index]">
                         <div v-for="group4 in group3.c" class="right-list-item" :class="{ 'selected-list' : group4.a}" :key="group4">
                             <router-link :to="'#'+group4.n.toLowerCase()"> <span class="place"/>{{ group4.n }} </router-link>
                         </div>
                     </div>
-                    </transition>
+                    <!-- </transition> -->
                 </div>
             </div>
         </div>

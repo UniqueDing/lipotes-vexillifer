@@ -36,7 +36,7 @@ export default {
     background-color: #000;
     width: 100%;
     padding: 4rem;
-    padding-left:10rem;
+    padding-left: 8rem;
     color: #fff;
     z-index:9999;
 }

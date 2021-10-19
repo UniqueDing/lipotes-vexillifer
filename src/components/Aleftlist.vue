@@ -9,7 +9,7 @@
                     <svg v-show="is_show_file" @click.stop="show[key]=!show[key]" :class="{ 'arrowTransform': show[key], 'arrowTransformReturn': !show[key]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                         <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                     </svg>
-                    <span class="place"/>{{key}}
+                    <span v-show="is_show_file" class="place"/>{{key}}
                     </li>
                     <li v-show="show[key] && is_show_file" class="list-group-item item" aria-current="true" :class="{ 'selected-list' : item.selected}" v-for="item in item" :key="item" @click="$emit('file_emit', item.path)">
                         <span class="place"/>{{item.title}}
@@ -46,25 +46,25 @@
         watch: {
             $route() {
                 let sub = this.$route.path.split('/')
-                console.log(sub)
+                /* console.log(sub) */
                 for (let x in this.total_list) {
-                    console.log('x' + x)
+                    /* console.log('x' + x) */
                     for (let y in this.total_list[x]) {
-                        console.log('y' + y)
+                        /* console.log('y' + y) */
                         this.total_list[x][y]['selected'] = false
                     }
                 }
                 if (sub[2] == 'detail') {
-                    console.log(this.total_list)
-                    console.log('selected')
-                    console.log(this.total_list[sub[3]])
+                    /* console.log(this.total_list) */
+                    /* console.log('selected') */
+                    /* console.log(this.total_list[sub[3]]) */
                     let sub_list = this.total_list[sub[3]]
                     for(let x in sub_list) {
                         if (sub_list[x]['title'] == sub[4].split('.')[0]) {
                             sub_list[x]['selected'] = true
                             this.show[sub[3]] = true
-                            console.log('selected is true')
-                            console.log(this.total_list)
+                            /* console.log('selected is true') */
+                            /* console.log(this.total_list) */
                             break
                         }
                     }
@@ -86,14 +86,14 @@
                 })()
             }
             axios.get('/'+this.dic+'/list.json').then((res) => {
-                console.log('res data = ', res.data)
+                /* console.log('res data = ', res.data) */
                 this.total_list = res.data.list
             })
         },
         methods: {
             file_expand(key) {
                 this.show[key] = true
-                console.log("file_expand")
+                /* console.log("file_expand") */
             }
         }
     }
