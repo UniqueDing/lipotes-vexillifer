@@ -4,12 +4,15 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        # environment:
+        #   - PUID=1000
+        #   - PGID=1000
+        #   - TZ=Asia/Shanghai
         ports:
           - 22010:80
         restart: always
         volumes:
           - ./path/to/note:/lipotes-vexillifer/note
-          - ./path/to/article:/lipotes-vexillifer/article
           - ./path/to/picture:/lipotes-vexillifer/picture
           - ./path/to/ebook:/lipotes-vexillifer/ebook
           - ./path/to/config:/lipotes-vexillifer/config

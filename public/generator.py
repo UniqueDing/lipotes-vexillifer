@@ -5,6 +5,7 @@ import yaml
 import json
 import shutil
 import glob
+import stat
 from ebooklib import epub
 
 note_list = {'total':[], 'list':{}}
@@ -114,15 +115,19 @@ def ebook_scan():
 def print_json():
     with open('note/list.json', 'w') as note_f:
         json.dump(note_list, note_f, indent=4, separators=(',', ':'))
+        os.chmod('note/list.json', stat.S_IROTH | stat.S_IWGRP | stat.S_IRGRP | stat.S_IWUSR | stat.S_IRUSR)
 
     with open('article/list.json', 'w') as article_f:
         json.dump(article_list, article_f, indent=4, separators=(',', ':'))
+        os.chmod('article/list.json', stat.S_IROTH | stat.S_IWGRP | stat.S_IRGRP | stat.S_IWUSR | stat.S_IRUSR)
 
     with open('picture/list.json', 'w') as picture_f:
         json.dump(picture_list, picture_f, indent=4, separators=(',', ':'))
+        os.chmod('picture/list.json', stat.S_IROTH | stat.S_IWGRP | stat.S_IRGRP | stat.S_IWUSR | stat.S_IRUSR)
 
     with open('ebook/list.json', 'w') as ebook_f:
         json.dump(ebook_list, ebook_f, indent=4, separators=(',', ':'))
+        os.chmod('ebook/list.json', stat.S_IROTH | stat.S_IWGRP | stat.S_IRGRP | stat.S_IWUSR | stat.S_IRUSR)
 
 
 if __name__ == "__main__":

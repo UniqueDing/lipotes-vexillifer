@@ -5,10 +5,12 @@
                 <div class="card" @click="jump(item.path)">
                     <img :src="item.cover" class="card-img-top" :alt="item.title">
                     <div class="card-body">
-                        <h5 class="card-title">{{item.title}}</h5>
-                        <h6 class="card-title">{{item.creator}}</h6>
-                        <h6 class="card-text">{{item.date}} {{item.publisher}}</h6>
-                        <p class="card-text">{{item.description.substr(0,30)}}</p>
+                        <h6 class="card-title">{{item.title}}</h6>
+                        <hr/>
+                        <div class="card-title meta">{{item.creator}}</div>
+                        <div class="card-title meta">{{item.date}}</div>
+                        <div class="card-title meta">{{item.publisher}}</div>
+                        <p class="card-text content">{{item.description.substr(0,30)}}</p>
                     </div>
                 </div>
             </div>
@@ -110,5 +112,23 @@ export default {
 .card {
     margin: 0.4rem;
     border-radius: 1rem;
+    height: 33rem;
+}
+
+.card hr {
+    margin: 0.5rem;
+}
+
+.card .meta {
+    margin: 0rem;
+    padding: 0rem;
+    font-size: 0.9rem;
+}
+
+.card .content {
+    margin: 0rem;
+    margin-top: 0.3rem;
+    padding: 0rem;
+    font-size: 0.8rem;
 }
 </style>

@@ -59,6 +59,7 @@ import axios from 'axios'
         watch: {
             $route () {
                 document.documentElement.scrollTop = 0;
+                this.dic = this.$route.path.split('/')[1]
                 this.reloadList()
             },
             /* total_list() { */
@@ -69,7 +70,7 @@ import axios from 'axios'
         },
         methods: {
             jump (path) {
-                this.$router.push({path: `/article/detail/${path}`,})
+                this.$router.push({path: `/${this.dic}/detail/${path}`,})
             },
             reloadList() {
                 var that=this
