@@ -4,5 +4,7 @@
     "picture": "picture",
     "note": "note",
     "about": "about",
-    "ebook":" ebook"
+    "ebook":" ebook",
+    "create":" create",
+    "update":" update"
 }

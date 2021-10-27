@@ -21,6 +21,7 @@
 <script>
 import ePub from "epubjs"
 import axios from 'axios'
+import dayjs from 'dayjs'
 
 export default {
     name: "Elist",
@@ -46,9 +47,11 @@ export default {
                 if(scrollTop + windowHeight >= scrollHeight - 300){
                     let temp = that.current_list.slice(that.show_index, that.show_index + 20)
                     that.show_list = that.show_list.concat(temp)
+
                     console.log('temp ' + temp)
                     temp.forEach(function(item) {
                         that.getCover(item)
+                        item.date = dayjs(item.date).format('YYYY-MM-DD')
                     })
                     that.show_index += 20
                 }
@@ -91,6 +94,7 @@ export default {
                 console.log('show_list = ', that.show_list)
                 that.show_list.forEach(function(item) {
                     that.getCover(item)
+                    item.date = dayjs(item.date).format('YYYY-MM-DD')
                 })
             })
         },

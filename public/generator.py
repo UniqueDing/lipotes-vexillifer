@@ -6,6 +6,7 @@ import json
 import shutil
 import glob
 import stat
+import time
 from ebooklib import epub
 
 note_list = {'total':[], 'list':{}}
@@ -26,6 +27,11 @@ def read_md_meta(file_path: str) -> dict:
 
     return yaml.load(yaml_str, Loader=yaml.BaseLoader)
 
+def get_m_time(file_path: str) -> str:
+    t = os.path.getmtime(file_path)
+    ts = time.localtime(t)
+    return time.strftime("%Y-%m-%d", ts)
+
 def note_scan():
     if os.path.exists('article'):
         shutil.rmtree('article')
@@ -41,6 +47,7 @@ def note_scan():
                 if head_dic != None:
                     path = os.path.join(root,file)[5:]
                     head_dic['path'] = path
+                    head_dic['modify'] = get_m_time(file_path)
                     parrent = head_dic['path'].split('/')[0]
                     if head_dic['cover'] != '':
                         head_dic['cover'] = parrent + '/' + head_dic['cover']
@@ -70,6 +77,12 @@ def note_scan():
 
                         if head_dic['public'] == 'about':
                             article_list['web']['about'] = path
+
+    # sort
+    def k(ele): return ele['modify']
+    note_list['total'].sort(key=k, reverse=True)
+    article_list['total'].sort(key=k, reverse=True)
+
 
 def picture_scan():
     pass
@@ -136,6 +149,6 @@ if __name__ == "__main__":
     ebook_scan()
 
     print_json()
-    print(note_list)
-    print(ebook_list)
+    # print(note_list)
+    # print(ebook_list)
 

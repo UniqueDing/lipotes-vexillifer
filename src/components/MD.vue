@@ -1,8 +1,9 @@
 <template>
     <div>
         <div class="meta">
-            <span>{{meta.author}} post:{{meta.date}}</span>
-            <span class="item" v-for="item in meta.tag" :key="item">{{item}}</span>
+            <span>{{meta.author}} {{$t('create')}}:&nbsp; {{meta.date}} {{$t('update')}}:&nbsp; {{meta.modify}} tags: </span>
+            <span class="item" v-for="item in meta.tag" :key="item">&nbsp;{{item}}</span>
+            <hr/>
         </div>
         <div v-html="result"></div>
     </div>
@@ -11,6 +12,7 @@
 <script>
 import 'highlight.js/scss/default.scss'
 import 'highlight.js/styles/nord.css'
+import dayjs from 'dayjs'
 import axios from 'axios'
 
 export default {
@@ -103,6 +105,8 @@ export default {
                     })
                 }
                 this.meta = md.meta
+                this.meta.date = dayjs(this.meta.date).format('YYYY-MM-DD')
+                this.meta.modify = dayjs(this.meta.modify).format('YYYY-MM-DD')
                 console.log(this.meta)
 
                 let env = this.file_path.substr(0, this.file_path.lastIndexOf('/'))
@@ -171,10 +175,10 @@ pre.hljs {
     color: #333;
 }
 
-.meta .item {
-    padding:0.1rem;
-    margin:0.2rem;
-    border:0.1rem solid #aaa;
-    border-radius:0.7rem;
-}
+/* .meta .item { */
+/*     padding:0.1rem; */
+/*     margin:0.2rem; */
+/*     border:0.1rem solid #aaa; */
+/*     border-radius:0.7rem; */
+/* } */
 </style>
