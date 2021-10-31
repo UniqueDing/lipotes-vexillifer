@@ -4,30 +4,28 @@
         <MD :file_path="file_path" v-on:right_list_emit="right_list_emit"></MD>
     </div>
     <div class="col-md-3">
-    <el-scrollbar>
         <div class="position-fixed right-list" :style="{height: fullHeight + 'px'}" v-for="group1 in right_list.c" :key="group1">
             <div v-for="group2 in group1.c" :key="group2">
                 <div class="right-list-item" :class="{ 'selected-list' : group2.a}">
-                    <router-link :to="'#'+group2.n.toLowerCase()"> {{ group2.n }} </router-link>
+                    <router-link :to="'#'+group2.t"> {{ group2.n }} </router-link>
                 </div>
                 <div v-for="(group3, index) in group2.c" :key="group3">
                     <div class="right-list-item" :class="{ 'selected-list' : group3.a}">
                         <svg @click.stop="show[index]=!show[index]" :class="{ 'arrowTransform': !show[index], 'arrowTransformReturn': show[index]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
                             <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
                         </svg>
-                        <router-link :to="'#'+group3.n.toLowerCase()"> <span class="place"/>{{ group3.n }}</router-link> 
+                        <router-link :to="'#'+group3.t"> <span class="place"/>{{ group3.n }}</router-link> 
                     </div>
                     <!-- <transition name="fade">-->
                     <div v-show="!show[index]">
                         <div v-for="group4 in group3.c" class="right-list-item" :class="{ 'selected-list' : group4.a}" :key="group4">
-                            <router-link :to="'#'+group4.n.toLowerCase()"> <span class="place"/>{{ group4.n }} </router-link>
+                            <router-link :to="'#'+group4.t"> <span class="place"/>{{ group4.n }} </router-link>
                         </div>
                     </div>
                     <!-- </transition> -->
                 </div>
             </div>
         </div>
-    </el-scrollbar>
     </div>
 </div>
 </template>
@@ -42,6 +40,7 @@ export default {
             result: null,
             file_path: "",
             right_list: [],
+            anchor_list: [],
             show: [],
             dic: this.$route.params.dic,
             fullHeight: document.documentElement.clientHeight,
@@ -85,6 +84,7 @@ export default {
     methods: {
         right_list_emit(right_list) {
             this.right_list = right_list
+            this.convertId2Anchor(this.right_list.c[0], 3)
         },
         scrollHandle(e){
             let top = e.srcElement.scrollingElement.scrollTop;    // 获取页面滚动高度
@@ -103,7 +103,7 @@ export default {
           if ( --n == 0) return
           for (let y in list.c){
               let item = list.c[y]
-              let anchor = '#' + item.n
+              let anchor = '#' + item.t
               if (document.querySelector(anchor) == undefined) {
                   continue
               }
@@ -111,7 +111,7 @@ export default {
               let item2 = list.c[parseInt(y) + 1]
               let item2_top = 99999;
               if (item2 != undefined) {
-                  let anchor2 = '#' + item2.n
+                  let anchor2 = '#' + item2.t
                   if (document.querySelector(anchor2) == undefined) {
                       continue
                   }
@@ -128,7 +128,39 @@ export default {
                   }
               }
           }
-        }
+        },
+        convertId2Anchor(list, n) {
+            if ( --n == 0) return
+            console.log("convertId2Anchor")
+            console.log(this.right_list)
+            for (let l1 in list.c) {
+                console.log(list.c[l1])
+                let tmp = list.c[l1].n.replace(/\s/g, '-').replace(/&/g, '').toLowerCase()
+                let is_first = true
+                while (this.anchor_list.includes(tmp)) {
+                    if (is_first) {
+                        tmp += '-1'
+                        is_first = false
+                    } else {
+                        let num = tmp.split('-').pop()
+                        num = parseInt(num, 10)+1
+                        tmp = tmp.substring(0, tmp.lastIndexOf('-')) + '-' + num;
+                    }
+                }
+
+                /* while (!this.anchor_list.values().includes(tmp)) { */
+                /*     tmp += "1" */
+                /* } */
+                console.log(tmp)
+                this.anchor_list.push(tmp)
+                list.c[l1].t = tmp
+                this.convertId2Anchor(list.c[l1])
+            }
+            console.log(this.anchor_list)
+            /* id = id.replace(/\s/g, '-').replace(/&/g, '').toLowerCase() */
+            /* console.log(id) */
+            /* return id */
+        },
     },
 }
 </script>

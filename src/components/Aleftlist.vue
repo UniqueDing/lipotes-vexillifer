@@ -45,31 +45,7 @@
         },
         watch: {
             $route() {
-                let sub = this.$route.path.split('/')
-                /* console.log(sub) */
-                for (let x in this.total_list) {
-                    /* console.log('x' + x) */
-                    for (let y in this.total_list[x]) {
-                        /* console.log('y' + y) */
-                        this.total_list[x][y]['selected'] = false
-                    }
-                }
-                if (sub[2] == 'detail') {
-                    /* console.log(this.total_list) */
-                    /* console.log('selected') */
-                    /* console.log(this.total_list[sub[3]]) */
-                    let sub_list = this.total_list[sub[3]]
-                    for(let x in sub_list) {
-                        if (sub_list[x]['title'] == sub[4].split('.')[0]) {
-                            sub_list[x]['selected'] = true
-                            this.show[sub[3]] = true
-                            /* console.log('selected is true') */
-                            /* console.log(this.total_list) */
-                            break
-                        }
-                    }
-                    /* this.total_list[sub[3]][sub[4].split('.')[0]]['selected'] = true */
-                }
+                this.reload_list()
             },
         },
         mounted() {
@@ -85,15 +61,44 @@
                     that.fullHeight = window.fullHeight
                 })()
             }
-            axios.get('/'+this.dic+'/list.json').then((res) => {
-                /* console.log('res data = ', res.data) */
-                this.total_list = res.data.list
-            })
+            this.reload_list()
         },
         methods: {
             file_expand(key) {
                 this.show[key] = true
                 /* console.log("file_expand") */
+            },
+            reload_list() {
+                let sub = this.$route.path.split('/')
+                axios.get('/'+this.dic+'/list.json').then((res) => {
+                    /* console.log('res data = ', res.data) */
+                    this.total_list = res.data.list
+                    /* console.log(sub) */
+                    for (let x in this.total_list) {
+                        /* console.log('x' + x) */
+                        for (let y in this.total_list[x]) {
+                            /* console.log('y' + y) */
+                            this.total_list[x][y]['selected'] = false
+                        }
+                    }
+                    if (sub[2] == 'detail') {
+                        /* console.log(this.total_list) */
+                        /* console.log('selected') */
+                        /* console.log(this.total_list[sub[3]]) */
+                        let sub_list = this.total_list[sub[3]]
+                        for(let x in sub_list) {
+                            if (sub_list[x]['title'] == sub[4].split('.')[0]) {
+                                sub_list[x]['selected'] = true
+                                this.show[sub[3]] = true
+                                /* console.log('selected is true') */
+                                /* console.log(this.total_list) */
+                                break
+                            }
+                        }
+                        /* this.total_list[sub[3]][sub[4].split('.')[0]]['selected'] = true */
+                    }
+                })
+
             }
         }
     }
