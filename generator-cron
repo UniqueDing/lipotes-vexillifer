@@ -1,2 +1,2 @@
-*/1 * * * * cd /lipotes-vexillifer && python3 generator.py
+*/10 * * * * cd /lipotes-vexillifer && python3 generator.py
 
