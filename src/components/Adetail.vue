@@ -1,9 +1,10 @@
 <template>
 <div class="row col-md-9">
     <div class="col-md-9">
-        <MD :file_path="file_path" v-on:right_list_emit="right_list_emit"></MD>
+        <Loading v-show="show_load"/>
+        <MD v-show="!show_load" :file_path="file_path" v-on:right_list_emit="right_list_emit"></MD>
     </div>
-    <div class="col-md-3">
+    <div v-show="!show_load" class="col-md-3">
         <div class="position-fixed right-list" :style="{height: fullHeight + 'px'}" v-for="group1 in right_list.c" :key="group1">
             <div v-for="group2 in group1.c" :key="group2">
                 <div class="right-list-item" :class="{ 'selected-list' : group2.a}">
@@ -32,6 +33,7 @@
 
 <script>
 import MD from './MD.vue'
+import Loading from './Loading.vue'
 
 export default {
     name : 'Adetail',
@@ -44,10 +46,12 @@ export default {
             show: [],
             dic: this.$route.params.dic,
             fullHeight: document.documentElement.clientHeight,
+            show_load: true,
         }
     },
     components: {
         MD,
+        Loading,
     },
     created() {
         this.dic = this.$route.path.split('/')[1]
@@ -85,6 +89,7 @@ export default {
         right_list_emit(right_list) {
             this.right_list = right_list
             this.convertId2Anchor(this.right_list.c[0], 3)
+            this.show_load = false
         },
         scrollHandle(e){
             let top = e.srcElement.scrollingElement.scrollTop;    // 获取页面滚动高度

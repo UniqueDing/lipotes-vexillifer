@@ -4,7 +4,8 @@
     "picture": "图片",
     "note": "笔记",
     "about": "关于",
-    "ebook": "电子书",
+    "ebook": "图书",
     "create":" 创建",
-    "update":" 更新"
+    "update":" 更新",
+    "loading": "加载中"
 }
