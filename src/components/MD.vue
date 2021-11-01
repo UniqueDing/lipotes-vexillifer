@@ -97,6 +97,7 @@ export default {
                     }
                 })
                 .use(require('markdown-it-meta'))
+                .use(require('markdown-it-footnote'))
 
                 this.result = md.render(res.data)
                 if (this.$route.hash != '') {
