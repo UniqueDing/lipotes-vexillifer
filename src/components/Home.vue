@@ -1,31 +1,36 @@
 <template>
 <div>
-    <MD :file_path="file_path"></MD>
+    <div class="position-absolute top-50 start-50 translate-middle title">Lipotes Vexillifer</div>
+    <canvas id="background"></canvas>
 </div>
 </template>
 
 <script>
-import MD from './MD.vue'
-import axios from 'axios'
 
 export default {
     name: "Home",
     data() {
-        return {
-            file_path:''
-        }
-    },
-    components: {
-        MD,
     },
     mounted() {
-        var that = this
-        axios.get('/article/list.json').then((res) => {
-            that.file_path = 'article/' + res.data.web.home
-        })
+        /* eslint-disable */
+        WFSRun()
     }
 }
 </script>
 
 <style scoped>
+.title {
+    z-index:10;
+    color: white;
+    font-size: 5rem;
+    font: hack;
+    user-select: none;
+}
+#background {
+    position:absolute;
+    top:-10rem;
+    bottom: -10rem;
+    width: 100%;
+    height: 150%;
+}
 </style>

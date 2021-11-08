@@ -80,7 +80,12 @@ export default {
                       '</code></pre>'
                     }
                 })
-                .use(require('markdown-it-plantuml'))
+                .use(require('markdown-it-plantuml'), {
+                    openMarker: '``` plantuml',
+                    closeMarker: '```',
+                    /* diagramName: 'ditaa', */
+                    /* imageFormat: 'png' */
+                })
                 .use(require('markdown-it-anchor').default, {
                     level: 1,
                     permalinkClass: 'header-anchor',
@@ -112,7 +117,11 @@ export default {
 
                 let env = this.file_path.substr(0, this.file_path.lastIndexOf('/'))
                 this.result = this.result.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi,function(match,capture){
-                    let newStr='<img class="img-fluid" src="'+env+'/'+capture+'"/>'
+                    let newStr = ''
+                    if (capture.slice(0,4) == 'http')
+                        newStr='<img class="img-fluid" src="'+capture+'"/>'
+                    else
+                        newStr='<img class="img-fluid" src="'+env+'/'+capture+'"/>'
                     return newStr
                 })
 

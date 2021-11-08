@@ -1,6 +1,6 @@
 <template>
-<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-    <a class="navbar-brand" href="#"> Lipotes Vexillifer </a>
+<nav :class="{trans: is_home}" class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="/"> Lipotes Vexillifer </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,7 +33,8 @@ export default{
     name : 'Navbar',
     data() {
         return {
-            nav_items : [["home" , "/"], 
+            is_home: false,
+            nav_items : [["home" , "/"],
                         ["article" , "/article/list/home"],
                         /* ["picture" , "/picture"], */
                         ["note" , "/note/list/home"],
@@ -51,10 +52,22 @@ export default{
         clickJP() {
             this.$i18n.locale = 'jp'
         },
-    }
+    },
+    watch: {
+        $route () {
+            console.log(this.$route)
+            if (this.$route.path === "/") {
+                this.is_home = true
+                console.log("is true")
+            } else {
+                this.is_home = false
+                console.log("is false")
+            }
+        },
+    },
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
 .placeholder {
     position:relative;
     height:5rem;
@@ -65,5 +78,22 @@ export default{
     width:1.5rem;
     height:1rem;
     border-radius:0.2rem;
+}
+
+.trans {
+    color:white !important;
+    background-color:transparent !important;
+}
+
+.trans  a {
+    color:white;
+}
+
+.trans a:hover {
+    color:white;
+}
+
+.trans  .nav-link {
+    color:white !important;
 }
 </style>

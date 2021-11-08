@@ -117,7 +117,7 @@
 }
 
 .left-list .selected-list {
-  background-color:red;
+  background-color:#75b1a9;
 }
 
 .place {

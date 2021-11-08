@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid global">
+    <div class="global container-fluid">
         <Navbar></Navbar>
         <router-view></router-view>
     </div>
@@ -19,8 +19,14 @@ export default {
 }
 </script>
 
-<style lang='scss'>
-.global{
-    min-height: 100rem;
+<style scoped>
+.container-fluid {
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
+.global {
+    min-height: 70rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
 }
 </style>
