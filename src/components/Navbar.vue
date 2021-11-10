@@ -25,7 +25,7 @@
         </ul>
     </div>
 </nav>
-<div class="placeholder"></div>
+<div v-show="!is_home" class="placeholder"></div>
 </template>
 
 <script>

@@ -20,13 +20,9 @@ export default {
 </script>
 
 <style scoped>
-.container-fluid {
-    padding-left: 0rem;
-    padding-right: 0rem;
-}
 .global {
     min-height: 70rem;
-    padding-left: 0rem;
-    padding-right: 0rem;
+    /* padding-left: 0rem; */
+    /* padding-right: 0rem; */
 }
 </style>

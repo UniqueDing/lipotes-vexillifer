@@ -70,6 +70,7 @@ export default {
     },
     watch : {
         $route () {
+            document.documentElement.scrollTop = 0;
             if(this.$route.params.file !== undefined) {
                 this.file_path = '/' + this.dic +'/'+this.$route.params.file[0]+'/'+this.$route.params.file[1]
             }

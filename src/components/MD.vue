@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import 'highlight.js/scss/default.scss'
-import 'highlight.js/styles/nord.css'
+import 'highlight.js/styles/darcula.css'
 import dayjs from 'dayjs'
 import axios from 'axios'
 
@@ -113,7 +112,7 @@ export default {
                 this.meta = md.meta
                 this.meta.date = dayjs(this.meta.date).format('YYYY-MM-DD')
                 this.meta.modify = dayjs(this.meta.modify).format('YYYY-MM-DD')
-                console.log(this.meta)
+                /* console.log(this.meta) */
 
                 let env = this.file_path.substr(0, this.file_path.lastIndexOf('/'))
                 this.result = this.result.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi,function(match,capture){
@@ -133,9 +132,9 @@ export default {
         },
         goAnchor(selector) {
             let anchor = document.querySelector(selector)
-            console.log(selector)
-            console.log(anchor)
-            console.log(anchor.offsetTop)
+            /* console.log(selector) */
+            /* console.log(anchor) */
+            /* console.log(anchor.offsetTop) */
             document.documentElement.scrollTop = anchor.offsetTop - this.convertRemToPixels(5)
         },
         convertRemToPixels(rem) {

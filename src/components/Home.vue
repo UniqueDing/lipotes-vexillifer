@@ -23,14 +23,13 @@ export default {
     z-index:10;
     color: white;
     font-size: 5rem;
-    font: hack;
     user-select: none;
+    pointer-events: none;
 }
 #background {
-    position:absolute;
-    top:-10rem;
-    bottom: -10rem;
+    position: absolute;
+    left: 0rem;
     width: 100%;
-    height: 150%;
+    height: 80rem;
 }
 </style>
