@@ -5,7 +5,7 @@
             <span class="item" v-for="item in meta.tag" :key="item">&nbsp;{{item}}</span>
             <hr/>
         </div>
-        <div v-html="result"></div>
+        <div class="md" v-html="result"></div>
     </div>
 </template>
 
@@ -145,6 +145,269 @@ export default {
 </script>
 
 <style lang='scss'>
+.meta {
+    padding-top:0.5rem;
+    padding-bottom:0.5rem;
+    color: #333;
+}
+
+/* @import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i'); */
+
+.md {
+    font-size: 16px;
+    /* line-height: 1.6em; */
+    -webkit-text-size-adjust: 100%;
+    background-color: #fff;
+    color: #545454;
+    /* font-family: "Raleway", sans-serif; */
+    /* font-family: "Hack"; */
+    text-rendering: optimizeLegibility;
+    /* max-width: 46em; */
+    /* margin: 2em auto; */
+    /* padding: 1.6em 3.15em; */
+    /* line-height: 1; */
+
+    ol,
+    ul {
+        list-style: none
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0
+    }
+
+    caption,
+    th,
+    td {
+        text-align: left;
+        font-weight: normal;
+        vertical-align: middle
+    }
+
+    q,
+    blockquote {
+        quotes: none
+    }
+
+    q:before,
+    q:after,
+    blockquote:before,
+    blockquote:after {
+        content: "";
+        content: none
+    }
+
+    a img {
+        border: none
+    }
+
+    article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+        display: block
+    }
+
+    /* * { */
+    /*     -moz-box-sizing: border-box; */
+    /*     -webkit-box-sizing: border-box; */
+    /*     box-sizing: border-box */
+    /* } */
+
+
+    h1 {
+        /* font-family: "Raleway", sans-serif; */
+        /* font-family: "Hack"; */
+        font-weight: 700;
+        color: #333;
+        font-size: 3rem;
+        line-height: 5rem;
+        margin-bottom: .78571rem
+    }
+
+    h2 {
+        /* font-family: "Raleway", sans-serif; */
+        font-weight: 600;
+        color: #333;
+        font-size: 2rem;
+        line-height: 3rem;
+        margin-top: 2rem;
+        margin-bottom: .6rem
+    }
+
+    h3 {
+        /* font-family: "Raleway", sans-serif; */
+        font-weight: 600;
+        color: #333;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        margin-top: 1rem;
+        margin-bottom: .6rem
+    }
+
+    h4 {
+        /* font-family: "Raleway", sans-serif; */
+        font-weight: 500;
+        color: #333;
+        font-size: 1.2rem;
+        line-height: 1.5rem;
+        margin-top: 1rem;
+        margin-bottom: .6rem
+    }
+
+    p {
+        margin-bottom: 1.57143em;
+        hyphens: auto
+    }
+
+
+    b, strong {
+        font-weight: 700;
+    }
+
+    i, em {
+        font-style: italic;
+    }
+
+    u {
+        text-decoration: none;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, #e06e73 50%);
+        background-repeat: repeat-x;
+        background-size: 2px 2px;
+        background-position: 0 1.05em
+    }
+
+    s {
+        color: #878787
+    }
+
+
+    a {
+        color: #e74c3c;
+        text-decoration: none
+    }
+
+    img {
+        max-width: 100%;
+        height: auto
+    }
+
+    blockquote {
+        display: block;
+        margin-left: -1em;
+        padding-left: 0.8em;
+        border-left: 0.2em solid #e74c3c;
+        background-color: transparent;
+    }
+
+    hr {
+        height: 1px;
+        border: 0;
+        background-color: #dedede;
+        margin: .7em auto .7em
+    }
+
+    /* LISTS */
+
+    ul li:before {
+        content: "•";
+        color: #e74c3c;
+        display: inline-block;
+        margin-right: 0.3em;
+        font-size: 1.5em;
+        vertical-align: middle;
+    }
+
+
+    ol{
+        counter-reset: ol;
+    }
+
+    ol li {
+        counter-increment: ol;
+    }
+
+    ol li:before {
+        content: counter(ol) ".";
+        color: #e06e73;
+        text-align: right;
+        display: inline-block;
+        min-width: 1em;
+        margin-right: 0.5em
+    }
+
+
+    /* TODO LIST */
+
+    input[type="checkbox"] {
+        position: relative;
+        width: 1rem;
+        height: 1rem;
+        background: white;
+        -webkit-appearance: none;
+        border: 1px solid #ccc;
+        border-radius: .2em;
+        margin: 0.2em .5em 0em -1.7em;
+        margin-bottom: .5em;
+        display: block;
+        float: left;
+        page-break-after: avoid;
+    }
+
+    input[type="checkbox"]:checked::before {
+        display: block;
+        content: '✓';
+        display: initial;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #e06e73;
+        position: absolute;
+        left: .1em;
+        bottom: -0.2em;
+    }
+
+    input[type="checkbox"] ~ label {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.1em;
+    }
+
+    ul li input[type="checkbox"] {
+        font: none;
+    }
+
+    ul li input[type="checkbox"] ~ label {
+        display: inline-block;
+        width: auto;
+        margin-bottom: 0.1em;
+        margin-left: 0.5em;
+    }
+
+    /*  TABLE */
+
+    table {
+        width: calc(100% + 3em);
+        margin-bottom: 1.5em;
+        margin-left: -1.5em;
+    }
+
+    table tr {
+        border-bottom: 1px solid #dedede;
+    }
+
+    table th {
+        font-weight: 700;
+    }
+
+    table td, table th {
+        vertical-align: top;
+        padding: .2em 1.5em;
+        font-size: .95em
+    }
+
+    thead tr {
+        border-bottom: 4px double #dedede;
+    }
+}
+
 pre.hljs {
   padding: 8px 2px;
   border-radius: 5px;
@@ -167,6 +430,9 @@ pre.hljs {
         border-right: 1px solid rgba(0, 0, 0, .66);
       }
     }
+    li:before{
+        display:none;
+    }
   }
   b.name {
     position: absolute;
@@ -176,12 +442,6 @@ pre.hljs {
     color: #999;
     pointer-events: none;
   }
-}
-
-.meta {
-    padding-top:0.5rem;
-    padding-bottom:0.5rem;
-    color: #333;
 }
 
 /* .meta .item { */

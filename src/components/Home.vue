@@ -22,7 +22,7 @@ export default {
 .title {
     z-index:10;
     color: white;
-    font-size: 5rem;
+    font-size: 4rem;
     user-select: none;
     pointer-events: none;
 }

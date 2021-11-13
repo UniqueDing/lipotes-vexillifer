@@ -1,6 +1,6 @@
 <template>
+    <Navbar></Navbar>
     <div class="global container-fluid">
-        <Navbar></Navbar>
         <router-view></router-view>
     </div>
     <Footer></Footer>
@@ -22,6 +22,7 @@ export default {
 <style scoped>
 .global {
     min-height: 70rem;
+    font-family: 'Hack';
     /* padding-left: 0rem; */
     /* padding-right: 0rem; */
 }
