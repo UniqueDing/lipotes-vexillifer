@@ -1,8 +1,8 @@
 <template>
     <footer class="footer">
-        <div class="row">
-            <div class="col-3" v-for="items in content" :key="items">
-                <h5>{{items.name}}</h5>
+        <div class="row row-cols-4">
+            <div class="col" v-for="items in content" :key="items">
+                <div>{{items.name}}</div>
                 <div v-for="item in items.groups" :key="item">
                     <a :href="item.url">{{item.name}}</a>
                 </div>
@@ -31,7 +31,8 @@ export default {
 
 <style scoped>
 .footer {
-    margin-top:4rem;
+    position: absolute;
+    margin-top: 4rem;
     background-color: #000;
     width: 100%;
     padding: 3rem;

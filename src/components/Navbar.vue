@@ -11,12 +11,12 @@
             </li>
         </ul>
         <ul class="ms-auto navbar-nav">
-<!--            <li class="nav-item"> -->
-<!--                <form class="d-flex"> -->
-<!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
-<!--                    <button class="btn btn-outline-success" type="submit">Search</button> -->
-<!--                </form> -->
-<!--            </li> -->
+            <li class="nav-item">
+                <div class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="search_message" @keyup.enter="search">
+                    <!--<button class="btn btn-outline-success" type="submit">{{$t("search")}}</button>-->
+                </div>
+            </li>
             <li class="nav-item">
                 <button class="btn" @click="clickZH"><img class="img-fluid language" src="../assets/language/Chinese.png" alt="zh"/></button>
                 <button class="btn" @click="clickEN"><img class="img-fluid language" src="../assets/language/English.png" alt="en"/></button>
@@ -40,6 +40,8 @@ export default{
                         ["note" , "/note/list/home"],
                         ["ebook" , "/ebook/home"],
                         ["about" , "/about"]],
+            site: window.location.host,
+            search_message: '',
         }
     },
     methods: {
@@ -52,16 +54,19 @@ export default{
         clickJP() {
             this.$i18n.locale = 'jp'
         },
+        search() {
+            window.open('https://bing.com/search?q=site%3A' + this.site + '+' + this.search_message)
+        }
     },
     watch: {
         $route () {
             console.log(this.$route)
             if (this.$route.path === "/") {
                 this.is_home = true
-                console.log("is true")
+                /* console.log("is true") */
             } else {
                 this.is_home = false
-                console.log("is false")
+                /* console.log("is false") */
             }
         },
     },
@@ -95,5 +100,8 @@ export default{
 
 .trans  .nav-link {
     color:white !important;
+}
+li {
+    margin-left: 1rem;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div :class="'col-md-'+left_width">
+    <div :class="'col-md-'+left_width" class="d-none d-sm-block">
         <div :style="{height: fullHeight + 'px'}">
             <div class="list-group position-fixed left-list" :style="{width: left_width / 15 * 100 + '%'}">
                 <li class="list-group-item item" aria-current="true" @click="$emit('list_emit', 'home')"> HOME </li>
