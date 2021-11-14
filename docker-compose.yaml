@@ -1,18 +1,13 @@
 version: '3'
 services:
-    lip:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        # environment:
-        #   - PUID=1000
-        #   - PGID=1000
-        #   - TZ=Asia/Shanghai
+    lipotes-vexillifer:
+        image: uniqueding/lipotes-vexillifer:latest
         ports:
-          - 22010:80
+          - 80:80
         restart: always
         volumes:
           - ./path/to/note:/lipotes-vexillifer/note
           - ./path/to/picture:/lipotes-vexillifer/picture
           - ./path/to/ebook:/lipotes-vexillifer/ebook
           - ./path/to/config:/lipotes-vexillifer/config
+          - ./path/to/nginx:/etc/nginx/conf.d/
