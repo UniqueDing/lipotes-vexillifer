@@ -19,6 +19,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.js'
 import i18n from './i18n'
 import axios from './plugins/axios.js'
 
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 
 const scrollBehavior = function (to) {
     if (to.hash) {
@@ -94,4 +97,10 @@ createApp(App)
     .use(i18n)
     .use(axios)
     .use(router)
+    .use(VueLoading, {
+        loader: "dots",
+        canCancel: false,
+        color: "#00ab00",
+        fullPage: "true",
+    })
     .mount('#app')

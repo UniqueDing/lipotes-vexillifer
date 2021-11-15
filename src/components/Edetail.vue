@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <Loading v-show="show_load"/>
         <div v-show="!show_load" class="row">
             <div class="col-md-1">
                 <div class="next position-fixed" @click="prev">
@@ -29,14 +28,10 @@
 
 <script>
 import ePub from "epubjs"
-import Loading from "./Loading.vue"
 /* import InlineView from 'epubjs/lib/managers/views/inline' */
 
     export default {
         name: "Edetail",
-        components: {
-            Loading,
-        },
         data() {
             return {
                 rendition: '',
@@ -46,7 +41,6 @@ import Loading from "./Loading.vue"
                 fullHeight: document.documentElement.clientHeight,
                 book: '',
                 last_url: '',
-                show_load: true,
             }
         },
         mounted() {
@@ -75,11 +69,11 @@ import Loading from "./Loading.vue"
                 this.file_path = '/ebook/' + this.$route.params.file[0] + '/' + this.$route.params.file[1]
             },
             open() {
+                let loader = this.$loading.show()
                 let that = this
-                console.log(this.file_path)
+                /* console.log(this.file_path) */
                 this.book = ePub(this.file_path)
-                console.log(this.book)
-                this.show_load = true
+                /* console.log(this.book) */
                 this.rendition = this.book.renderTo("viewer", {
                     /* manager: "continuous", */
                     flow: "scrolled",
@@ -93,9 +87,9 @@ import Loading from "./Loading.vue"
                 this.book.loaded.navigation.then(function(toc) {
                     /* console.log(toc) */
                     /* that.toc = that.recursionHandle(toc.toc, [], 0).join('') */
-                    that.show_load = false
                     that.toc = that.recursionHandle(toc.toc, [], 0)
-                    console.log(that.toc)
+                    loader.hide()
+                    /* console.log(that.toc) */
                 })
 
             },

@@ -59,8 +59,11 @@ import axios from 'axios'
         watch: {
             $route () {
                 document.documentElement.scrollTop = 0;
-                this.dic = this.$route.path.split('/')[1]
-                this.reloadList()
+                let tmpdic = this.$route.path.split('/')[1]
+                if (tmpdic == "note" || tmpdic == "article") {
+                    this.reloadList()
+                    this.dic = tmpdic
+                }
             },
             /* total_list() { */
             /*     this.show_index = 30 */
@@ -73,12 +76,13 @@ import axios from 'axios'
                 this.$router.push({path: `/${this.dic}/detail/${path}`,})
             },
             reloadList() {
+                let loader = this.$loading.show()
                 var that=this
                 axios.get('/'+that.dic+'/list.json').then((res) => {
                     console.log('res data = ', res.data)
                     console.log(that.$route.params)
                     let list = that.$route.params.list
-                    console.log(list)
+                    /* console.log(list) */
                     if(list == 'home') {
                         that.total_list = res.data['total']
                     } else {
@@ -87,7 +91,9 @@ import axios from 'axios'
                     that.show_index = 30
                     that.current_list = that.total_list
                     that.show_list = that.current_list.slice(0, that.show_index)
-                    console.log('show_list = ', that.show_list)
+
+                    loader.hide();
+                    /* console.log('show_list = ', that.show_list) */
                 })
             }
 

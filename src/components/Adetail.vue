@@ -1,8 +1,7 @@
 <template>
 <div class="row col-md-9">
     <div class="col-md-9">
-        <Loading v-show="show_load"/>
-        <MD v-show="!show_load" :file_path="file_path" v-on:right_list_emit="right_list_emit"></MD>
+        <MD :file_path="file_path" v-on:right_list_emit="right_list_emit"></MD>
     </div>
     <div v-show="!show_load" class="col-md-3">
         <div class="position-fixed right-list" :style="{height: fullHeight + 'px'}" v-for="group1 in right_list.c" :key="group1">
@@ -33,7 +32,6 @@
 
 <script>
 import MD from './MD.vue'
-import Loading from './Loading.vue'
 
 export default {
     name : 'Adetail',
@@ -46,12 +44,10 @@ export default {
             show: [],
             dic: this.$route.params.dic,
             fullHeight: document.documentElement.clientHeight,
-            show_load: true,
         }
     },
     components: {
         MD,
-        Loading,
     },
     created() {
         this.dic = this.$route.path.split('/')[1]

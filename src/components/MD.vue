@@ -35,6 +35,8 @@ export default {
     },
     methods: {
         loadFile(){
+            let loader = this.$loading.show()
+
             console.log("file_path" + this.file_path)
             const uslug = require('uslug')
             const uslugify = s => uslug(s)
@@ -124,6 +126,7 @@ export default {
                     return newStr
                 })
 
+                loader.hide()
             })
 
         },

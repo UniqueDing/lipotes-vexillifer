@@ -78,6 +78,7 @@ export default {
         },
         reloadList() {
             var that=this
+            let loader = this.$loading.show()
             document.documentElement.scrollTop = 0;
             axios.get('/'+that.dic+'/list.json').then((res) => {
                 console.log('res data = ', res.data)
@@ -96,6 +97,7 @@ export default {
                     that.getCover(item)
                     item.date = dayjs(item.date).format('YYYY-MM-DD')
                 })
+                loader.hide()
             })
         },
         getCover(item) {
