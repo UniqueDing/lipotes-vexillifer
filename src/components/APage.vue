@@ -1,6 +1,7 @@
 <template>
     <div class="row">
-        <Aleftlist v-on:file_emit="file_click" v-on:list_emit="list_click"></Aleftlist>
+
+        <Aleftlist class="d-none d-sm-block" v-on:file_emit="file_click" v-on:list_emit="list_click"></Aleftlist>
         <router-view></router-view>
     </div>
 </template>

@@ -22,7 +22,7 @@ export default {
 <style scoped>
 .global {
     min-height: 70rem;
-    font-family: 'Hack';
+    /* font-family: 'Hack'; */
     /* padding-left: 0rem; */
     /* padding-right: 0rem; */
 }

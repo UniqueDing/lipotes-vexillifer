@@ -19,6 +19,38 @@
             </div>
         </div>
     </div>
+
+    <div class="d-block d-sm-none">
+        <div class="position-fixed left-button">
+            <svg data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" xmlns="http://www.w3.org/2000/svg" width="32" height="64" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
+            </svg>
+        </div>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="left-list">
+                    <li class="list-group-item item" aria-current="true" @click="$emit('list_emit', 'home')"> HOME </li>
+                    <div v-for="(item, key) in total_list" :key="item">
+                        <div>
+                        <li class="list-group-item item" @click="$emit('list_emit', key)" aria-current="true">
+                        <svg v-show="is_show_file" @click.stop="show[key]=!show[key]" :class="{ 'arrowTransform': show[key], 'arrowTransformReturn': !show[key]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                        </svg>
+                        <span v-show="is_show_file" class="place"/>{{key}}
+                        </li>
+                            <li v-show="show[key] && is_show_file" class="list-group-item item" aria-current="true" :class="{ 'selected-list' : item.selected}" v-for="item in item" :key="item" @click="$emit('file_emit', item.path)">
+                                <span class="place"/>{{item.title}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -50,8 +82,6 @@
         },
         mounted() {
             this.dic = this.$route.path.split("/")[1]
-            /* const uslug = require('uslug') */
-            /* const uslugify = s => uslug(s) */
             const that = this
             window.addEventListener('scroll',this.scrollHandle)
             console.log("fullHeight" + this.fullHeight)
@@ -108,8 +138,8 @@
 
 .left-list {
   overflow: auto;
-  margin-left:2rem;
-  border-radius:1rem;
+  /* margin-left:2rem; */
+  /* border-radius:1rem; */
 }
 .left-list .item {
   background-color:#f1fa8c;
@@ -124,14 +154,21 @@
     margin-right: 1.5rem;
 }
 
-.arrowTransform{
+.arrowTransform {
     transition: 0.3s;
     transform-origin: center;
     transform: rotateZ(90deg);
 }
-.arrowTransformReturn{
+.arrowTransformReturn {
     transition: 0.3s;
     transform-origin: center;
     transform: rotateZ(0deg);
+}
+.left-button {
+    margin-top: 100%;
+    margin-left: -1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    z-index: 999;
+    background-color:red;
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="col-md-9">
         <MD :file_path="file_path" v-on:right_list_emit="right_list_emit"></MD>
     </div>
-    <div v-show="!show_load" class="col-md-3">
+    <div class="col-md-3">
         <div class="position-fixed right-list" :style="{height: fullHeight + 'px'}" v-for="group1 in right_list.c" :key="group1">
             <div v-for="group2 in group1.c" :key="group2">
                 <div class="right-list-item" :class="{ 'selected-list' : group2.a}">
@@ -86,7 +86,6 @@ export default {
         right_list_emit(right_list) {
             this.right_list = right_list
             this.convertId2Anchor(this.right_list.c[0], 3)
-            this.show_load = false
         },
         scrollHandle(e){
             let top = e.srcElement.scrollingElement.scrollTop;    // 获取页面滚动高度
@@ -133,10 +132,10 @@ export default {
         },
         convertId2Anchor(list, n) {
             if ( --n == 0) return
-            console.log("convertId2Anchor")
-            console.log(this.right_list)
+            // console.log("convertId2Anchor")
+            // console.log(this.right_list)
             for (let l1 in list.c) {
-                console.log(list.c[l1])
+                // console.log(list.c[l1])
                 let tmp = list.c[l1].n.replace(/\s/g, '-').replace(/&/g, '').toLowerCase()
                 let is_first = true
                 while (this.anchor_list.includes(tmp)) {
@@ -153,12 +152,12 @@ export default {
                 /* while (!this.anchor_list.values().includes(tmp)) { */
                 /*     tmp += "1" */
                 /* } */
-                console.log(tmp)
+                // console.log(tmp)
                 this.anchor_list.push(tmp)
                 list.c[l1].t = tmp
                 this.convertId2Anchor(list.c[l1])
             }
-            console.log(this.anchor_list)
+            // console.log(this.anchor_list)
             /* id = id.replace(/\s/g, '-').replace(/&/g, '').toLowerCase() */
             /* console.log(id) */
             /* return id */
@@ -167,7 +166,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style>
 .right-list {
   overflow: auto;
 }

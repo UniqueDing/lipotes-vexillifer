@@ -5,7 +5,6 @@ import App from './App.vue'
 import Home from './components/Home.vue'
 import Picture from './components/Picture.vue'
 import APage from './components/APage.vue'
-// import Note from './components/Note.vue'
 import About from './components/About.vue'
 import Adetail from './components/Adetail.vue'
 import Alist from './components/Alist.vue'
@@ -101,6 +100,6 @@ createApp(App)
         loader: "dots",
         canCancel: false,
         color: "#00ab00",
-        fullPage: "true",
+        fullPage: "false",
     })
     .mount('#app')

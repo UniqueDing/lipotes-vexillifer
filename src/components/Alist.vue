@@ -76,13 +76,16 @@ import axios from 'axios'
                 this.$router.push({path: `/${this.dic}/detail/${path}`,})
             },
             reloadList() {
+                let list = this.$route.params.list
+                if(list == undefined) {
+                    return
+                }
                 let loader = this.$loading.show()
                 var that=this
                 axios.get('/'+that.dic+'/list.json').then((res) => {
-                    console.log('res data = ', res.data)
-                    console.log(that.$route.params)
-                    let list = that.$route.params.list
-                    /* console.log(list) */
+                    // console.log('res data = ', res.data)
+                    // console.log(that.$route.params)
+                    // console.log("list " + list)
                     if(list == 'home') {
                         that.total_list = res.data['total']
                     } else {
