@@ -1,11 +1,29 @@
 <template>
-    <div>
+    <div v-show="!loading">
         <div class="meta">
             <span>{{meta.author}} {{$t('create')}}:&nbsp; {{meta.date}} {{$t('update')}}:&nbsp; {{meta.modify}} tags: </span>
             <span class="item" v-for="item in meta.tag" :key="item">&nbsp;{{item}}</span>
             <hr/>
         </div>
         <div class="md" v-html="result"></div>
+    </div>
+    <div v-show="loading" class="card" aria-hidden="true">
+        <div class="card-body">
+            <h1 class="card-title placeholder-glow">
+                <span class="placeholder col-6"></span>
+            </h1>
+            <div v-for="item in 5" :key="item">
+                <h3 class="card-title placeholder-glow mt-3">
+                    <span class="placeholder col-3"></span>
+                </h3>
+                <p class="card-text placeholder-glow">
+                    <span class="placeholder col-12"></span>
+                    <span class="placeholder col-6"></span>
+                    <span class="placeholder col-9"></span>
+                    <span class="placeholder col-7"></span>
+                </p>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -22,6 +40,7 @@ export default {
         return{
             result: null,
             meta: '',
+            loading: true,
         }
     },
     mounted() {
@@ -35,8 +54,6 @@ export default {
     },
     methods: {
         loadFile(){
-            let loader = this.$loading.show()
-
             console.log("file_path" + this.file_path)
             const uslug = require('uslug')
             const uslugify = s => uslug(s)
@@ -126,7 +143,7 @@ export default {
                     return newStr
                 })
 
-                loader.hide()
+                this.loading = false
             })
 
         },

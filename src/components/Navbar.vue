@@ -25,7 +25,7 @@
         </ul>
     </div>
 </nav>
-<div v-show="!is_home" class="placeholder"></div>
+<div v-show="!is_home" class="nav-placeholder"></div>
 </template>
 
 <script>
@@ -38,7 +38,7 @@ export default{
                         ["article" , "/article/list/home"],
                         /* ["picture" , "/picture"], */
                         ["note" , "/note/list/home"],
-                        ["ebook" , "/ebook/home"],
+                        // ["ebook" , "/ebook/home"],
                         ["about" , "/about"]],
             site: window.location.host,
             search_message: '',
@@ -73,7 +73,7 @@ export default{
 }
 </script>
 <style scoped>
-.placeholder {
+.nav-placeholder {
     position:relative;
     height:5rem;
     display:block;
