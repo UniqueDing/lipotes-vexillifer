@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import 'highlight.js/styles/darcula.css'
+import 'highlight.js/styles/nord.css'
 import dayjs from 'dayjs'
 import axios from 'axios'
 
@@ -177,8 +177,8 @@ export default {
     font-size: 16px;
     /* line-height: 1.6em; */
     -webkit-text-size-adjust: 100%;
-    background-color: #fff;
-    color: #545454;
+    /* background-color: #fff; */
+    /* color: #545454; */
     /* font-family: "Raleway", sans-serif; */
     /* font-family: "Hack"; */
     text-rendering: optimizeLegibility;
@@ -237,7 +237,7 @@ export default {
         /* font-family: "Raleway", sans-serif; */
         /* font-family: "Hack"; */
         font-weight: 700;
-        color: #333;
+        color: $color1;
         font-size: 3rem;
         line-height: 5rem;
         margin-bottom: .78571rem
@@ -246,7 +246,7 @@ export default {
     h2 {
         /* font-family: "Raleway", sans-serif; */
         font-weight: 600;
-        color: #333;
+        color: $color1;
         font-size: 2rem;
         line-height: 3rem;
         margin-top: 2rem;
@@ -256,7 +256,7 @@ export default {
     h3 {
         /* font-family: "Raleway", sans-serif; */
         font-weight: 600;
-        color: #333;
+        color: $color1;
         font-size: 1.5rem;
         line-height: 2rem;
         margin-top: 1rem;
@@ -266,7 +266,7 @@ export default {
     h4 {
         /* font-family: "Raleway", sans-serif; */
         font-weight: 500;
-        color: #333;
+        color: $color1;
         font-size: 1.2rem;
         line-height: 1.5rem;
         margin-top: 1rem;
@@ -289,19 +289,19 @@ export default {
 
     u {
         text-decoration: none;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, #e06e73 50%);
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, $color12 50%);
         background-repeat: repeat-x;
         background-size: 2px 2px;
         background-position: 0 1.05em
     }
 
     s {
-        color: #878787
+        color: $color8;
     }
 
 
     a {
-        color: #e74c3c;
+        color: $color12;
         text-decoration: none
     }
 
@@ -314,14 +314,14 @@ export default {
         display: block;
         margin-left: -1em;
         padding-left: 0.8em;
-        border-left: 0.2em solid #e74c3c;
+        border-left: 0.2em solid $color12;
         background-color: transparent;
     }
 
     hr {
         height: 1px;
         border: 0;
-        background-color: #dedede;
+        background-color: $color5;
         margin: .7em auto .7em
     }
 
@@ -329,7 +329,7 @@ export default {
 
     ul li:before {
         content: "•";
-        color: #e74c3c;
+        color: $color12;
         display: inline-block;
         margin-right: 0.3em;
         font-size: 1.5em;
@@ -347,7 +347,7 @@ export default {
 
     ol li:before {
         content: counter(ol) ".";
-        color: #e06e73;
+        color: $color13;
         text-align: right;
         display: inline-block;
         min-width: 1em;
@@ -363,7 +363,7 @@ export default {
         height: 1rem;
         background: white;
         -webkit-appearance: none;
-        border: 1px solid #ccc;
+        border: 1px solid $color7;
         border-radius: .2em;
         margin: 0.2em .5em 0em -1.7em;
         margin-bottom: .5em;
@@ -378,7 +378,7 @@ export default {
         display: initial;
         font-size: 1.1em;
         font-weight: bold;
-        color: #e06e73;
+        color: $color13;
         position: absolute;
         left: .1em;
         bottom: -0.2em;
@@ -410,7 +410,7 @@ export default {
     }
 
     table tr {
-        border-bottom: 1px solid #dedede;
+        border-bottom: 1px solid $color7;
     }
 
     table th {
@@ -424,7 +424,7 @@ export default {
     }
 
     thead tr {
-        border-bottom: 4px double #dedede;
+        border-bottom: 4px double $color7;
     }
 }
 
@@ -459,7 +459,7 @@ pre.hljs {
     top: 2px;
     right: 12px;
     z-index: 10;
-    color: #999;
+    color: $color4;
     pointer-events: none;
   }
 }

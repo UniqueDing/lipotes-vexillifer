@@ -166,33 +166,33 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .right-list {
   overflow: auto;
 }
 
 .right-list-item {
-  border-left-color: #75b1a9;
+  border-left-color: $color9;
   border-left-width: 0.2rem;
   border-left-style: solid;
   padding-left: 1em;
   text-decoration:none;
-  color: #757575;
+  color: $color9;
   cursor: pointer;
 }
 
 .right-list-item a {
   text-decoration:none;
-  color: #757575;
+  color: $color9;
 }
 
 .selected-list {
-  background-color: #75b1a9;
-  color: #fff;
+  background-color: $color9;
+  color: $color7;
 }
 
 .selected-list a {
-  color: #fff;
+  color: $color7;
 }
 
 .right-list .place {

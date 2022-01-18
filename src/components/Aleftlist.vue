@@ -22,13 +22,13 @@
 
     <div class="d-block d-sm-none">
         <div class="position-fixed left-button">
-            <svg data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" xmlns="http://www.w3.org/2000/svg" width="32" height="64" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+            <svg data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeftlist" aria-controls="offcanvasLeftlist" xmlns="http://www.w3.org/2000/svg" width="32" height="64" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"/>
             </svg>
         </div>
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasLeftlist" aria-labelledby="offcanvasLeftlistLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                <h5 class="offcanvas-title" id="offcanvasLeftlistLabel">{{$t('list')}}</h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
@@ -77,11 +77,11 @@
         },
         watch: {
             $route() {
+                this.dic = this.$route.path.split("/")[1]
                 this.reload_list()
             },
         },
         mounted() {
-            this.dic = this.$route.path.split("/")[1]
             const that = this
             window.addEventListener('scroll',this.scrollHandle)
             console.log("fullHeight" + this.fullHeight)
@@ -91,6 +91,7 @@
                     that.fullHeight = window.fullHeight
                 })()
             }
+            this.dic = this.$route.path.split("/")[1]
             this.reload_list()
         },
         methods: {
@@ -134,7 +135,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .left-list {
   overflow: auto;
@@ -142,12 +143,12 @@
   /* border-radius:1rem; */
 }
 .left-list .item {
-  background-color:#f1fa8c;
+  background-color:$color6;
   cursor: pointer;
 }
 
 .left-list .selected-list {
-  background-color:#75b1a9;
+  background-color:$color10;
 }
 
 .place {
@@ -169,6 +170,6 @@
     margin-left: -1rem;
     border-radius: 0 0.5rem 0.5rem 0;
     z-index: 999;
-    background-color:red;
+    background-color:$color7;
 }
 </style>

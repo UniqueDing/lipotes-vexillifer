@@ -18,5 +18,12 @@ module.exports = {
       .type('javascript/auto')
       .use('i18n')
       .loader('@intlify/vue-i18n-loader')
+  },
+  css: {
+    loaderOptions: {
+      scss: {
+        additionalData: `@import "~@/assets/css/color.scss";`,
+      }
+    }
   }
 }
