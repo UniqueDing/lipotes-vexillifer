@@ -77,12 +77,12 @@ summary:
 
 ## References
 
-[vue](https://vuejs.org/index.html)
-[vue-router](https://router.vuejs.org/)
-[bootstrap](https://getbootstrap.com/)
-[nginx](https://www.nginx.com/)
-[WebGL-Fluid-Simulation](https://paveldogreat.github.io/WebGL-Fluid-Simulation/)
+- [vue](https://vuejs.org/index.html)
+- [vue-router](https://router.vuejs.org/)
+- [bootstrap](https://getbootstrap.com/)
+- [nginx](https://www.nginx.com/)
+- [WebGL-Fluid-Simulation](https://paveldogreat.github.io/WebGL-Fluid-Simulation/)
 
 ## License
 
-[license](License)
+[license](LICENSE)
