@@ -2,9 +2,9 @@
 
 ## Introduction
 
-    lipotes-vexillifer is 白鱀豚.[wiki](https://en.wikipedia.org/wiki/Baiji)
+lipotes-vexillifer is 白鱀豚. [wiki](https://en.wikipedia.org/wiki/Baiji)
 
-    This's my persional website.
+This's my persional website.
 
 ## Setup
 
