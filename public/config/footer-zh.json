@@ -1,0 +1,76 @@
+{
+    "content": [
+        {
+            "name":"站点",
+            "groups": [
+                {
+                    "name": "home",
+                    "url": "/home"
+                },
+                {
+                    "name": "article",
+                    "url": "/article"
+                },
+                {
+                    "name": "picture",
+                    "url": "/picture"
+                },
+                {
+                    "name": "note",
+                    "url": "/note"
+                },
+                {
+                    "name": "ebook",
+                    "url": "/ebook"
+                },
+                {
+                    "name": "about",
+                    "url": "/about"
+                }
+            ]
+        },
+        {
+            "name": "个人",
+            "groups": [
+                {
+                    "name": "github",
+                    "url": "https://github.com/uniqueding"
+                },
+                {
+                    "name": "bilibili",
+                    "url": "https://space.bilibili.com/19445169"
+                }
+            ]
+        },
+        {
+            "name": "朋友",
+            "groups": [
+                {
+                    "name": "yangjin",
+                    "url": "https://shuang-zi.github.io"
+                }
+            ]
+        },
+        {
+            "name": "链接",
+            "groups": [
+                {
+                    "name": "vue",
+                    "url": "https://vuejs.org/"
+                },
+                {
+                    "name": "bootstrap",
+                    "url": "https://getbootstrap.com/"
+                },
+                {
+                    "name": "markdown-it",
+                    "url": "https://github.com/markdown-it/markdown-it"
+                },
+                {
+                    "name": "epubjs",
+                    "url": "https://github.com/futurepress/epub.js/"
+                }
+            ]
+        }
+    ]
+}

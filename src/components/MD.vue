@@ -12,15 +12,16 @@
             <h1 class="card-title placeholder-glow">
                 <span class="placeholder col-6"></span>
             </h1>
-            <div v-for="item in 5" :key="item">
+            <div v-for="item in 10" :key="item">
                 <h3 class="card-title placeholder-glow mt-3">
                     <span class="placeholder col-3"></span>
                 </h3>
                 <p class="card-text placeholder-glow">
-                    <span class="placeholder col-12"></span>
+                    <span class="placeholder col-5 me-2"></span>
                     <span class="placeholder col-6"></span>
-                    <span class="placeholder col-9"></span>
-                    <span class="placeholder col-7"></span>
+                    <span class="placeholder col-7 me-2"></span>
+                    <span class="placeholder col-4"></span>
+                    <span class="placeholder col-9 me-1"></span>
                 </p>
             </div>
         </div>
@@ -131,7 +132,6 @@ export default {
                 this.meta = md.meta
                 this.meta.date = dayjs(this.meta.date).format('YYYY-MM-DD')
                 this.meta.modify = dayjs(this.meta.modify).format('YYYY-MM-DD')
-                /* console.log(this.meta) */
 
                 let env = this.file_path.substr(0, this.file_path.lastIndexOf('/'))
                 this.result = this.result.replace(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi,function(match,capture){
@@ -152,9 +152,6 @@ export default {
         },
         goAnchor(selector) {
             let anchor = document.querySelector(selector)
-            /* console.log(selector) */
-            /* console.log(anchor) */
-            /* console.log(anchor.offsetTop) */
             document.documentElement.scrollTop = anchor.offsetTop - this.convertRemToPixels(5)
         },
         convertRemToPixels(rem) {
@@ -312,7 +309,7 @@ export default {
 
     blockquote {
         display: block;
-        margin-left: -1em;
+        // margin-left: -1em;
         padding-left: 0.8em;
         border-left: 0.2em solid $color12;
         background-color: transparent;

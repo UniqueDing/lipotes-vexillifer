@@ -21,8 +21,7 @@ export default {
         }
     },
     mounted() {
-        axios.get('/config/footer.json').then((res) => {
-            console.log(res.data)
+        axios.get('/config/footer-'+this.$i18n.locale+'.json').then((res) => {
             this.content = res.data.content
         })
     },

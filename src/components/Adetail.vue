@@ -16,13 +16,13 @@
                         </svg>
                         <router-link :to="'#'+group3.t"> <span class="place"/>{{ group3.n }}</router-link> 
                     </div>
-                    <!-- <transition name="fade">-->
+                    <transition name="fade">
                     <div v-show="!show[index]">
                         <div v-for="group4 in group3.c" class="right-list-item" :class="{ 'selected-list' : group4.a}" :key="group4">
                             <router-link :to="'#'+group4.t"> <span class="place"/>{{ group4.n }} </router-link>
                         </div>
                     </div>
-                    <!-- </transition> -->
+                    </transition>
                 </div>
             </div>
         </div>
@@ -101,41 +101,38 @@ export default {
         /*     document.documentElement.scrollTop = anchor.offsetTop - this.convertRemToPixels(5) */
         /* }, */
         modifyBgcolor(top, list, n) {
-          if ( --n == 0) return
-          for (let y in list.c){
-              let item = list.c[y]
-              let anchor = '#' + item.t
-              if (document.querySelector(anchor) == undefined) {
-                  continue
-              }
-              let item_top = document.querySelector(anchor).offsetTop - this.convertRemToPixels(5)
-              let item2 = list.c[parseInt(y) + 1]
-              let item2_top = 99999;
-              if (item2 != undefined) {
-                  let anchor2 = '#' + item2.t
-                  if (document.querySelector(anchor2) == undefined) {
-                      continue
-                  }
-                  item2_top = document.querySelector(anchor2).offsetTop - this.convertRemToPixels(5)
-              }
-              if (top >= item_top && top < item2_top) {
-                  item.a = true
-                  this.modifyBgcolor(top, list.c[y]);
-              } else {
-                  item.a = false
-                  for (let z in list.c[y].c){
-                      let item = list.c[y].c[z]
-                      item.a = false
-                  }
-              }
-          }
+            if ( --n == 0) return
+            for (let y in list.c){
+                let item = list.c[y]
+                let anchor = '#' + item.t
+                if (document.querySelector(anchor) == undefined) {
+                    continue
+                }
+                let item_top = document.querySelector(anchor).offsetTop - this.convertRemToPixels(5)
+                let item2 = list.c[parseInt(y) + 1]
+                let item2_top = 99999;
+                if (item2 != undefined) {
+                    let anchor2 = '#' + item2.t
+                    if (document.querySelector(anchor2) == undefined) {
+                        continue
+                    }
+                    item2_top = document.querySelector(anchor2).offsetTop - this.convertRemToPixels(5)
+                }
+                if (top >= item_top && top < item2_top) {
+                    item.a = true
+                    this.modifyBgcolor(top, list.c[y]);
+                } else {
+                    item.a = false
+                    for (let z in list.c[y].c){
+                        let item = list.c[y].c[z]
+                        item.a = false
+                    }
+                }
+            }
         },
         convertId2Anchor(list, n) {
             if ( --n == 0) return
-            // console.log("convertId2Anchor")
-            // console.log(this.right_list)
             for (let l1 in list.c) {
-                // console.log(list.c[l1])
                 let tmp = list.c[l1].n.replace(/\s/g, '-').replace(/&/g, '').toLowerCase()
                 let is_first = true
                 while (this.anchor_list.includes(tmp)) {
@@ -149,18 +146,10 @@ export default {
                     }
                 }
 
-                /* while (!this.anchor_list.values().includes(tmp)) { */
-                /*     tmp += "1" */
-                /* } */
-                // console.log(tmp)
                 this.anchor_list.push(tmp)
                 list.c[l1].t = tmp
                 this.convertId2Anchor(list.c[l1])
             }
-            // console.log(this.anchor_list)
-            /* id = id.replace(/\s/g, '-').replace(/&/g, '').toLowerCase() */
-            /* console.log(id) */
-            /* return id */
         },
     },
 }
@@ -175,15 +164,16 @@ export default {
   border-left-color: $color9;
   border-left-width: 0.2rem;
   border-left-style: solid;
-  padding-left: 1em;
-  text-decoration:none;
+  padding-left: 1rem;
+  text-decoration: none;
   color: $color9;
   cursor: pointer;
 }
 
 .right-list-item a {
-  text-decoration:none;
+  text-decoration: none;
   color: $color9;
+  padding-right: 2rem;
 }
 
 .selected-list {
@@ -196,12 +186,12 @@ export default {
 }
 
 .right-list .place {
-  margin-left:1rem;
+  margin-left: 1rem;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease;
 }
 
 .fade-enter-from,
