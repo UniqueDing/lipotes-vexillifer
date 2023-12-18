@@ -146,7 +146,7 @@ def print_json():
 if __name__ == "__main__":
     note_scan()
     # picture_scan()
-    ebook_scan()
+    # ebook_scan()
 
     print_json()
     # print(note_list)

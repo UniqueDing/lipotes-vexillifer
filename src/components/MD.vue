@@ -45,7 +45,6 @@ export default {
         }
     },
     mounted() {
-        console.log("file_path" + this.file_path)
         this.loadFile()
     },
     watch : {
@@ -55,7 +54,6 @@ export default {
     },
     methods: {
         loadFile(){
-            console.log("file_path" + this.file_path)
             const uslug = require('uslug')
             const uslugify = s => uslug(s)
             var that = this
@@ -84,7 +82,7 @@ export default {
                             }
                             return '<pre class="hljs"><code>' + html + '</code></pre>'
                         } catch (e) {
-                            console.log(e)
+                            console.error(e)
                         }
                     }
                     // 未添加代码语言，此处与上面同理
@@ -116,7 +114,6 @@ export default {
                 .use(require('markdown-it-toc-done-right').default, {
                     slugify: uslugify,
                     callback: function (html, ast) {
-                        /* that.right = ast */
                         that.$emit("right_list_emit", ast)
                     }
                 })
@@ -168,21 +165,10 @@ export default {
     color: #333;
 }
 
-/* @import url('https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i'); */
-
 .md {
     font-size: 16px;
-    /* line-height: 1.6em; */
     -webkit-text-size-adjust: 100%;
-    /* background-color: #fff; */
-    /* color: #545454; */
-    /* font-family: "Raleway", sans-serif; */
-    /* font-family: "Hack"; */
     text-rendering: optimizeLegibility;
-    /* max-width: 46em; */
-    /* margin: 2em auto; */
-    /* padding: 1.6em 3.15em; */
-    /* line-height: 1; */
 
     ol,
     ul {
@@ -223,16 +209,7 @@ export default {
         display: block
     }
 
-    /* * { */
-    /*     -moz-box-sizing: border-box; */
-    /*     -webkit-box-sizing: border-box; */
-    /*     box-sizing: border-box */
-    /* } */
-
-
     h1 {
-        /* font-family: "Raleway", sans-serif; */
-        /* font-family: "Hack"; */
         font-weight: 700;
         color: $color1;
         font-size: 3rem;
@@ -241,7 +218,6 @@ export default {
     }
 
     h2 {
-        /* font-family: "Raleway", sans-serif; */
         font-weight: 600;
         color: $color1;
         font-size: 2rem;
@@ -251,7 +227,6 @@ export default {
     }
 
     h3 {
-        /* font-family: "Raleway", sans-serif; */
         font-weight: 600;
         color: $color1;
         font-size: 1.5rem;
@@ -261,7 +236,6 @@ export default {
     }
 
     h4 {
-        /* font-family: "Raleway", sans-serif; */
         font-weight: 500;
         color: $color1;
         font-size: 1.2rem;
@@ -309,7 +283,7 @@ export default {
 
     blockquote {
         display: block;
-        // margin-left: -1em;
+        margin-left: -1em;
         padding-left: 0.8em;
         border-left: 0.2em solid $color12;
         background-color: transparent;
@@ -459,6 +433,40 @@ pre.hljs {
     color: $color4;
     pointer-events: none;
   }
+
+.right-list {
+  overflow: auto;
+}
+
+.right-list-item {
+  border-left-color: $color9;
+  border-left-width: 0.2rem;
+  border-left-style: solid;
+  padding-left: 1rem;
+  text-decoration: none;
+  color: $color9;
+  cursor: pointer;
+}
+
+.right-list-item a {
+  text-decoration: none;
+  color: $color9;
+  padding-right: 2rem;
+}
+
+.selected-list {
+  background-color: $color9;
+  color: $color7;
+}
+
+.selected-list a {
+  color: $color7;
+}
+
+.right-list .place {
+  margin-left: 1rem;
+}
+
 }
 
 /* .meta .item { */

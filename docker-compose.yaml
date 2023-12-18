@@ -3,7 +3,7 @@ services:
     lipotes-vexillifer:
         image: uniqueding/lipotes-vexillifer:latest
         ports:
-          - 80:80
+          - 8088:80
         restart: always
         volumes:
           - ./path/to/note:/lipotes-vexillifer/note

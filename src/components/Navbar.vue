@@ -60,13 +60,10 @@ export default{
     },
     watch: {
         $route () {
-            console.log(this.$route)
             if (this.$route.path === "/") {
                 this.is_home = true
-                /* console.log("is true") */
             } else {
                 this.is_home = false
-                /* console.log("is false") */
             }
         },
     },

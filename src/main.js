@@ -88,8 +88,9 @@ const router = createRouter({
     ]
 })
 
-createApp(App)
+const app = createApp(App)
     .use(i18n)
     .use(axios)
     .use(router)
-    .mount('#app')
+
+app.mount('#app')

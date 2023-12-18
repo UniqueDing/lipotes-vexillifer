@@ -1,37 +1,29 @@
 <template>
 <div class="row col-md-9">
     <div class="col-md-9">
-        <MD :file_path="file_path" v-on:right_list_emit="right_list_emit"></MD>
+        <MD :file_path="file_path" v-on:right_list_emit="right_list_emit"
+            data-bs-spy="scroll" data-bs-target="#navbar" data-bs-smooth-scroll="true"
+        ></MD>
+        <div class="comment"></div>
     </div>
     <div class="col-md-3">
-        <div class="position-fixed right-list" :style="{height: fullHeight + 'px'}" v-for="group1 in right_list.c" :key="group1">
-            <div v-for="group2 in group1.c" :key="group2">
-                <div class="right-list-item" :class="{ 'selected-list' : group2.a}">
-                    <router-link :to="'#'+group2.t"> {{ group2.n }} </router-link>
+        <nav id="right-list" class="position-fixed flex-column align-items-stretch right-list">
+            <nav class="nav nav-pills flex-column" v-for="group1 in right_list.c" :key="group1" >
+                <div v-for="group2 in group1.c" :key="group2">
+                    <a class="nav-link right-list-item" :href="'#'+group2.t">{{group2.n}}</a>
+                    <nav class="nav nav-pills flex-column" v-for="group3 in group2.c" :key="group3">
+                        <a class="nav-link right-list-item" :href="'#'+group3.t"><span class="place"/>{{group3.n}}</a> 
+                    </nav>
                 </div>
-                <div v-for="(group3, index) in group2.c" :key="group3">
-                    <div class="right-list-item" :class="{ 'selected-list' : group3.a}">
-                        <svg @click.stop="show[index]=!show[index]" :class="{ 'arrowTransform': !show[index], 'arrowTransformReturn': show[index]}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                        </svg>
-                        <router-link :to="'#'+group3.t"> <span class="place"/>{{ group3.n }}</router-link> 
-                    </div>
-                    <transition name="fade">
-                    <div v-show="!show[index]">
-                        <div v-for="group4 in group3.c" class="right-list-item" :class="{ 'selected-list' : group4.a}" :key="group4">
-                            <router-link :to="'#'+group4.t"> <span class="place"/>{{ group4.n }} </router-link>
-                        </div>
-                    </div>
-                    </transition>
-                </div>
-            </div>
-        </div>
+            </nav>
+        </nav>
     </div>
 </div>
 </template>
 
 <script>
 import MD from './MD.vue'
+import * as bootstrap from 'bootstrap';
 
 export default {
     name : 'Adetail',
@@ -43,7 +35,7 @@ export default {
             anchor_list: [],
             show: [],
             dic: this.$route.params.dic,
-            fullHeight: document.documentElement.clientHeight,
+            full_height: document.documentElement.clientHeight,
         }
     },
     components: {
@@ -56,13 +48,16 @@ export default {
     mounted() {
         const that = this
         window.addEventListener('scroll',this.scrollHandle)
-        console.log("fullHeight" + this.fullHeight)
         window.onresize = () => {
             return (() => {
-                window.fullHeight = document.documentElement.clientHeight
-                that.fullHeight = window.fullHeight
+                window.full_height = document.documentElement.clientHeight
+                that.full_height = window.full_height
             })()
         }
+        this.scrollSpyInstance = new bootstrap.ScrollSpy(document.body, {
+            target: '#navbar',
+            offset: 150,
+        });
     },
     watch : {
         $route () {
@@ -71,9 +66,9 @@ export default {
                 this.file_path = '/' + this.dic +'/'+this.$route.params.file[0]+'/'+this.$route.params.file[1]
             }
         },
-        fullHeight (val) {
+        full_height (val) {
             if(!this.timer) {
-                this.fullHeight = val
+                this.full_height = val
                 this.timer = true
                 let that = this
                 setTimeout(function (){
@@ -86,49 +81,7 @@ export default {
         right_list_emit(right_list) {
             this.right_list = right_list
             this.convertId2Anchor(this.right_list.c[0], 3)
-        },
-        scrollHandle(e){
-            let top = e.srcElement.scrollingElement.scrollTop;    // 获取页面滚动高度
-            this.modifyBgcolor(top, this.right_list.c[0], 3)
-        },
-        convertRemToPixels(rem) {
-            return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-        },
-        /* goAnchor(selector) { */
-        /*     let anchor = document.querySelector(selector) */
-        /*     console.log(selector) */
-        /*     console.log(anchor.offsetTop) */
-        /*     document.documentElement.scrollTop = anchor.offsetTop - this.convertRemToPixels(5) */
-        /* }, */
-        modifyBgcolor(top, list, n) {
-            if ( --n == 0) return
-            for (let y in list.c){
-                let item = list.c[y]
-                let anchor = '#' + item.t
-                if (document.querySelector(anchor) == undefined) {
-                    continue
-                }
-                let item_top = document.querySelector(anchor).offsetTop - this.convertRemToPixels(5)
-                let item2 = list.c[parseInt(y) + 1]
-                let item2_top = 99999;
-                if (item2 != undefined) {
-                    let anchor2 = '#' + item2.t
-                    if (document.querySelector(anchor2) == undefined) {
-                        continue
-                    }
-                    item2_top = document.querySelector(anchor2).offsetTop - this.convertRemToPixels(5)
-                }
-                if (top >= item_top && top < item2_top) {
-                    item.a = true
-                    this.modifyBgcolor(top, list.c[y]);
-                } else {
-                    item.a = false
-                    for (let z in list.c[y].c){
-                        let item = list.c[y].c[z]
-                        item.a = false
-                    }
-                }
-            }
+            this.scrollSpyInstance.refresh()
         },
         convertId2Anchor(list, n) {
             if ( --n == 0) return
@@ -156,57 +109,31 @@ export default {
 </script>
 
 <style lang="scss">
-.right-list {
-  overflow: auto;
-}
+#right-list {
+    overflow: auto;
 
-.right-list-item {
-  border-left-color: $color9;
-  border-left-width: 0.2rem;
-  border-left-style: solid;
-  padding-left: 1rem;
-  text-decoration: none;
-  color: $color9;
-  cursor: pointer;
-}
+    .right-list-item {
+        border-left-color: $color9;
+        border-left-width: 0.3rem;
+        border-left-style: solid;
+        border-radius: 0;
+        padding-left: 1rem;
+        text-decoration: none;
+        color: $color9;
+        cursor: pointer;
+    }
 
-.right-list-item a {
-  text-decoration: none;
-  color: $color9;
-  padding-right: 2rem;
-}
+    .active {
+        color: $color7;
+        background-color: $color9;
+    }
 
-.selected-list {
-  background-color: $color9;
-  color: $color7;
-}
+    .place {
+        margin-left: 1.5rem;
+    }
 
-.selected-list a {
-  color: $color7;
 }
-
-.right-list .place {
-  margin-left: 1rem;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.arrowTransform{
-    transition: 0.3s;
-    transform-origin: center;
-    transform: rotateZ(90deg);
-}
-.arrowTransformReturn{
-    transition: 0.3s;
-    transform-origin: center;
-    transform: rotateZ(0deg);
+.comment {
+    height: 30rem;
 }
 </style>
