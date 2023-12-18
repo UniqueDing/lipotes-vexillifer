@@ -1,6 +1,6 @@
 <template>
     <div :class="'col-md-'+left_width" class="d-none d-sm-block">
-        <div :style="{height: fullHeight + 'px'}">
+        <div :style="{height: full_height + 'px'}">
             <div class="list-group position-fixed left-list" :style="{width: left_width / 15 * 100 + '%'}">
                 <li class="list-group-item item" aria-current="true" @click="$emit('list_emit', 'home')"> HOME </li>
                 <div v-for="(item, key) in total_list" :key="item">
@@ -69,7 +69,7 @@
         },
         data() {
             return {
-                fullHeight: document.documentElement.clientHeight,
+                full_height: document.documentElement.clientHeight,
                 total_list: "",
                 dic: "",
                 show: {},
@@ -84,11 +84,10 @@
         mounted() {
             const that = this
             window.addEventListener('scroll',this.scrollHandle)
-            console.log("fullHeight" + this.fullHeight)
             window.onresize = () => {
                 return (() => {
-                    window.fullHeight = document.documentElement.clientHeight
-                    that.fullHeight = window.fullHeight
+                    window.full_height = document.documentElement.clientHeight
+                    that.full_height = window.full_height
                 })()
             }
             this.dic = this.$route.path.split("/")[1]
@@ -97,7 +96,6 @@
         methods: {
             file_expand(key) {
                 this.show[key] = true
-                /* console.log("file_expand") */
             },
             reload_list() {
                 let sub = this.$route.path.split('/')
@@ -111,13 +109,13 @@
                     if (sub[2] == 'detail') {
                         let sub_list = this.total_list[sub[3]]
                         for(let x in sub_list) {
-                            if (sub_list[x]['title'] == sub[4].split('.')[0]) {
+                            if (sub_list[x]['path'].split("/")[1] == sub[4]) {
                                 sub_list[x]['selected'] = true
+                                this.show = {}
                                 this.show[sub[3]] = true
                                 break
                             }
                         }
-                        /* this.total_list[sub[3]][sub[4].split('.')[0]]['selected'] = true */
                     }
                 })
 
